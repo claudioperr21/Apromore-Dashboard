@@ -1,0 +1,2931 @@
+{
+    "sourceSeriesLogIdMap": {
+        "SalesforcenOfficenCasenHandlingRISOR": 20412
+    },
+    "logFilterRules": {},
+    "chartsTheme": "DEFAULT",
+    "logStyleArray": [
+        {
+            "name": "SalesforcenOfficenCasenHandlingRISOR",
+            "label": "Salesforce Office Case Handling",
+            "color": "#84C7E3"
+        }
+    ],
+    "numberFormatStyle": {
+        "thousandsSeparatorEnabled": "true",
+        "commaDotStyle": "true",
+        "decimalPlace": "2"
+    },
+    "canvasArray": [
+        {
+            "title": "Task Level Analysis",
+            "basePattern": null,
+            "rows": [
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Window",
+                                "xDataSetType": "all",
+                                "yAxisType": "activityInstanceDuration",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "Activity",
+                                "zAxisType": "caseFrequency",
+                                "logarithmic": "true",
+                                "relative": "true",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "activityInstanceDuration",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Time spent per app",
+                                "chartSubtitle": "Relative Scale",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Total  duration",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "minute",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750150992448
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Activity",
+                                "xDataSetType": "all",
+                                "yAxisType": "activityInstanceDuration",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "Resource",
+                                "zAxisType": "frequency",
+                                "logarithmic": "true",
+                                "relative": "true",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "activityInstanceDuration",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Time spent per status",
+                                "chartSubtitle": "Relative scale",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Total  duration",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "minute",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750151124546
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Window",
+                                "xDataSetType": "all",
+                                "yAxisType": "eventAttribute",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "mouse_click_count",
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "true",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "eventAttribute",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Mouse clicks per app",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Total mouse click count",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750154878876
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Activity",
+                                "xDataSetType": "all",
+                                "yAxisType": "eventAttribute",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "mouse_click_count",
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "eventAttribute",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Mouse clicks per status",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Total mouse click count",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750155059173
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "eventAttribute",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "Window",
+                                "zAxisType": "totalDuration",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "eventAttribute",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [
+                                    "user2@apromore.com",
+                                    "user1@apromore.com",
+                                    "user3@apromore.com"
+                                ],
+                                "selectedYattributeValues": [
+                                    "Salesforce",
+                                    "Microsoft Word",
+                                    "Microsoft Excel"
+                                ],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resources - time spent per window",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Window",
+                                "zkChartsType": "heatmap",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750151381154
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Activity",
+                                "xDataSetType": "all",
+                                "yAxisType": "eventAttribute",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "Window",
+                                "zAxisType": "totalDuration",
+                                "logarithmic": "false",
+                                "relative": "true",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "eventAttribute",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [
+                                    "Created.",
+                                    "Status In Progress",
+                                    "Status Escalated",
+                                    "Status Working",
+                                    "Status On Hold",
+                                    "Status Response Received",
+                                    "Status Waiting for Customer"
+                                ],
+                                "selectedYattributeValues": [
+                                    "Salesforce",
+                                    "Microsoft Word",
+                                    "Microsoft Excel"
+                                ],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Status - time spent per window",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Window",
+                                "zkChartsType": "heatmap",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750151851353
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Step",
+                                "xDataSetType": "all",
+                                "yAxisType": "eventAttribute",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": "Resource",
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "eventAttribute",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventsOverTime",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    },
+                                    {
+                                        "key1": "eventAttribute",
+                                        "key2": "caseFrequency",
+                                        "kpiLines": {}
+                                    }
+                                ],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [
+                                    "Salesforce | Knowledge | Recently Viewed",
+                                    "Salesforce",
+                                    "Salesforce | Contact",
+                                    "Microsoft Excel",
+                                    "Salesforce | New",
+                                    "Salesforce | Contacts | Recently Viewed",
+                                    "Salesforce | Recently Viewed | Reports",
+                                    "Salesforce | Case | New",
+                                    "Salesforce | Dashboards",
+                                    "Salesforce | Recently Viewed",
+                                    "Microsoft Word",
+                                    "Salesforce | Home",
+                                    "Salesforce | Case",
+                                    "Salesforce | Contacts",
+                                    "Salesforce | Dashboards | Recently Viewed",
+                                    "Salesforce | Accounts | Recently Viewed",
+                                    "Salesforce | Accounts",
+                                    "Salesforce | Cases | Recently Viewed",
+                                    "Salesforce | Reports",
+                                    "Salesforce | Knowledge"
+                                ],
+                                "selectedYattributeValues": [
+                                    "user2@apromore.com",
+                                    "user1@apromore.com",
+                                    "user3@apromore.com"
+                                ],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Steps x Resource Analysis",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Resource",
+                                "zkChartsType": "heatmap",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 1749640782780,
+                                        "userDefinedTo": 1750171280618
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "table",
+                            "tablesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tablesDataType": "cases",
+                                "attributeKey": "concept:name",
+                                "tablesSetType": "all",
+                                "headerFontColor": "#FFF",
+                                "headerBGColor": "DEFAULT",
+                                "headerFontSize": 14,
+                                "titleLabel": "Cases",
+                                "sortColumnName": null,
+                                "firstTouchSetting": {
+                                    "ftDisplayType": "ALL_ACTIVITIES",
+                                    "ftStatsSetting": {
+                                        "caseCountShown": true,
+                                        "caseVariantCountShown": true,
+                                        "variabilityRatioShown": true,
+                                        "minCaseDurationShown": true,
+                                        "medCaseDurationShown": true,
+                                        "avgCaseDurationShown": true,
+                                        "maxCaseDurationShown": true,
+                                        "minFtLtDurationShown": false,
+                                        "medFtLtDurationShown": false,
+                                        "avgFtLtDurationShown": false,
+                                        "maxFtLtDurationShown": false
+                                    },
+                                    "selectedActivities": []
+                                },
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "logComplianceBreaches": {
+                                    "20412": {
+                                        "complianceType": "COMPLIANT_CASES",
+                                        "byCases": false,
+                                        "controlIds": [],
+                                        "complianceViolationStateType": "ANY",
+                                        "complianceTimeframeSetting": {
+                                            "complianceTimeframeType": "USER_DEFINED",
+                                            "predefinedTimeIntervals": [],
+                                            "relativeTimeframeTarget": "THIS",
+                                            "relativeTimeframeInterval": "YEAR",
+                                            "userDefinedFrom": 1749640782780,
+                                            "userDefinedTo": 1750155022027
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                }
+            ]
+        },
+        {
+            "title": "Resources",
+            "basePattern": "Resources",
+            "rows": [
+                {
+                    "height": "220",
+                    "columns": [
+                        {
+                            "widthRatio": "0.3299161230195713",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "eventAttribute",
+                                "title": "Resources",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "Resource",
+                                "statsValue": "3",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "uniqueval",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-user",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.3299161230195713",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "eventAttribute",
+                                "title": "Average Resource frequency",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "Resource",
+                                "statsValue": "99.33",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "avgfreq",
+                                "subDisplayType": "std",
+                                "stdV": "Std. deviation: 40.75",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-user",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.3299161230195713",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "eventAttribute",
+                                "title": "Average Resource duration",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "Resource",
+                                "statsValue": "2.79 secs",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "avgdur",
+                                "subDisplayType": "durstd",
+                                "stdV": "Std. deviation: 9.29 secs",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-user",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseFrequency",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resource - Case frequency",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Case frequency",
+                                "zkChartsType": "pie",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "activityInstanceFrequency",
+                                "yAxisAggregationType": "total",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resource - Activity instance frequency",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "",
+                                "zkChartsType": "pie",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {
+                        "user2@apromore.com": "#ED908B",
+                        "user1@apromore.com": "#84C7E3",
+                        "user3@apromore.com": "#C1E1C1"
+                    }
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseDuration",
+                                "yAxisAggregationType": "average",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resource - Average case duration",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "minute",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseDuration",
+                                "yAxisAggregationType": "min",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resource - Min case duration",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseDuration",
+                                "yAxisAggregationType": "max",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Resource - Max case duration",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "hour",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "table",
+                            "tablesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tablesDataType": "eventAttribute",
+                                "attributeKey": "Resource",
+                                "tablesSetType": "all",
+                                "headerFontColor": "#FFF",
+                                "headerBGColor": "DEFAULT",
+                                "headerFontSize": 14,
+                                "titleLabel": "",
+                                "sortColumnName": null,
+                                "firstTouchSetting": {
+                                    "ftDisplayType": "ALL_ACTIVITIES",
+                                    "ftStatsSetting": {
+                                        "caseCountShown": true,
+                                        "caseVariantCountShown": true,
+                                        "variabilityRatioShown": true,
+                                        "minCaseDurationShown": true,
+                                        "medCaseDurationShown": true,
+                                        "avgCaseDurationShown": true,
+                                        "maxCaseDurationShown": true,
+                                        "minFtLtDurationShown": false,
+                                        "medFtLtDurationShown": false,
+                                        "avgFtLtDurationShown": false,
+                                        "maxFtLtDurationShown": false
+                                    },
+                                    "selectedActivities": []
+                                },
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "logComplianceBreaches": {}
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                }
+            ]
+        },
+        {
+            "title": "Process Metrics",
+            "basePattern": "Overview",
+            "rows": [
+                {
+                    "height": "220",
+                    "columns": [
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "totalcases",
+                                "title": "Cases",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "",
+                                "statsValue": "13",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-ap-road",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "casevariants",
+                                "title": "Case variants",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "",
+                                "statsValue": "12",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-casevari",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "totalactivities",
+                                "title": "Activity instances",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "",
+                                "statsValue": "298",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-ap-flag",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "eventAttribute",
+                                "title": "Activities",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "Activity",
+                                "statsValue": "7",
+                                "statsValueSize": "40",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "uniqueval",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-ap-cube",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "compositeCaseDuration",
+                                "title": "Case duration",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "",
+                                "statsValue": "",
+                                "statsValueSize": "18",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-ap-duration",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        },
+                        {
+                            "widthRatio": "0.16262814538676607",
+                            "columnType": "tile",
+                            "tilesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tilesDataType": "compositeLogTimeFrame",
+                                "title": "Log timeframe",
+                                "titleSize": "18",
+                                "titleColor": "#8D9091",
+                                "attributeKey": "",
+                                "statsValue": "",
+                                "statsValueSize": "18",
+                                "statsValueColor": "#333333",
+                                "statsValueSymbol": "",
+                                "displayType": "",
+                                "subDisplayType": "",
+                                "stdV": "",
+                                "borderColor": "DEFAULT",
+                                "borderWidth": "6",
+                                "displayleftBorder": "true",
+                                "displayRightBorder": "false",
+                                "displayTopBorder": "false",
+                                "displayBottomBorder": "false",
+                                "backgroundColor": "#FFF",
+                                "icon": "icon-schedule",
+                                "iconSize": "20",
+                                "iconColor": "#8D9091",
+                                "titleAlign": "left",
+                                "valueAlign": "left",
+                                "iconAlign": "right",
+                                "subtitle": "",
+                                "subtitleSize": 12,
+                                "mainValueDisplayType": "value",
+                                "mainValuePercentageDisplayed": "false",
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "arcParam": {
+                                    "targetValue": "",
+                                    "sourceValue": "",
+                                    "bySource": true
+                                },
+                                "complianceSetting": {
+                                    "displayType": "TOTAL_COMPLIANT_CASES",
+                                    "aggregateType": "TOTAL",
+                                    "tileComplianceValueDisplayType": "DEFAULT",
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "controlIds": [],
+                                    "complianceViolationStateType": "ANY"
+                                },
+                                "customMetricId": 0
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "eventsOverTime",
+                                "attributeKey": "",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseFrequency",
+                                "yAxisAggregationType": "",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Activity instances over time",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "Timestamp",
+                                "yAxisTitle": "Activity instances",
+                                "zkChartsType": "spline",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "casesOverTime",
+                                "attributeKey": "",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseFrequency",
+                                "yAxisAggregationType": "",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Work-in-Progress (Cases)",
+                                "chartSubtitle": "Active cases over time",
+                                "xAxisTitle": "Timestamp",
+                                "yAxisTitle": "Cases",
+                                "zkChartsType": "area",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "casesVariants",
+                                "attributeKey": "",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseFrequency",
+                                "yAxisAggregationType": "",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Case variants",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Cases",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "second",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        },
+                        {
+                            "widthRatio": "0.4972041006523765",
+                            "columnType": "chart",
+                            "chartsSetting": {
+                                "seriesLogIdMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "SalesforcenOfficenCasenHandlingRISOR"
+                                },
+                                "chartsDataType": "caseDuration",
+                                "attributeKey": "",
+                                "xDataSetType": "all",
+                                "yAxisType": "caseFrequency",
+                                "yAxisAggregationType": "",
+                                "yAxisAttributeKey": null,
+                                "zAxisType": "frequency",
+                                "logarithmic": "false",
+                                "relative": "false",
+                                "split": "false",
+                                "polar": "false",
+                                "durationUnit": "day",
+                                "sortType": "descending",
+                                "longitudePerfParam": {
+                                    "uiChartType": "column",
+                                    "intervalType": "QUARTER",
+                                    "containmentType": "CONTAINED_IN",
+                                    "metricType": "CASES",
+                                    "aggregationType": "TOTAL",
+                                    "orderType": "X_ASCENDING"
+                                },
+                                "kpiLinesMap": {},
+                                "horizontalKpiLinesMap": [],
+                                "kpiRangeSet": [],
+                                "yKpiThresholds": [],
+                                "selectedXAttributeValues": [],
+                                "selectedYattributeValues": [],
+                                "seriesOrder": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "selectedSeries": [
+                                    "SalesforcenOfficenCasenHandlingRISOR"
+                                ],
+                                "seriesLabelMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "seriesColorMap": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "#84C7E3"
+                                },
+                                "chartTitle": "Case duration",
+                                "chartSubtitle": "",
+                                "xAxisTitle": "",
+                                "yAxisTitle": "Cases",
+                                "zkChartsType": "column",
+                                "xKpiOpacity": 0.75,
+                                "yKpiOpacity": 0.5,
+                                "legendEnabled": true,
+                                "unionMapChartXCategories": false,
+                                "autoUnit": "hour",
+                                "autoUnitApply": true,
+                                "startActivities": [],
+                                "endActivities": [],
+                                "xaxisIntervalType": "MONTH",
+                                "primaryQueueType": "AFTER_ACTIVITY",
+                                "queueActivity": "",
+                                "activeQueueType": "WIP_AND_THROUGHPUT",
+                                "secondaryY": {
+                                    "optionTypeIndex": 0,
+                                    "item1": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    },
+                                    "item2": {
+                                        "title": "Case duration",
+                                        "uiChartType": "dash_column",
+                                        "metricType": "CASE_DURATION",
+                                        "aggregationType": "TOTAL",
+                                        "durationUnit": "AUTO",
+                                        "logarithmic": false,
+                                        "relative": false
+                                    }
+                                },
+                                "topAttrValSelectX": false,
+                                "topAttrValSelectY": false,
+                                "topAttrValFreqX": 10,
+                                "topAttrValFreqY": 10,
+                                "complianceOverview": {
+                                    "controlIds": [],
+                                    "paretoShown": false,
+                                    "complianceTimeframeSetting": {
+                                        "complianceTimeframeType": "USER_DEFINED",
+                                        "predefinedTimeIntervals": [],
+                                        "relativeTimeframeTarget": "THIS",
+                                        "relativeTimeframeInterval": "YEAR",
+                                        "userDefinedFrom": 0,
+                                        "userDefinedTo": 0
+                                    },
+                                    "valueType": "TOTAL_VIOLATIONS",
+                                    "groupBy": "CONTROL",
+                                    "groupInterval": "YEAR",
+                                    "complianceViolationStateType": "ANY"
+                                }
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "table",
+                            "tablesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tablesDataType": "cases",
+                                "attributeKey": "concept:name",
+                                "tablesSetType": "all",
+                                "headerFontColor": "#FFF",
+                                "headerBGColor": "DEFAULT",
+                                "headerFontSize": 14,
+                                "titleLabel": "Cases",
+                                "sortColumnName": null,
+                                "firstTouchSetting": {
+                                    "ftDisplayType": "ALL_ACTIVITIES",
+                                    "ftStatsSetting": {
+                                        "caseCountShown": true,
+                                        "caseVariantCountShown": true,
+                                        "variabilityRatioShown": true,
+                                        "minCaseDurationShown": true,
+                                        "medCaseDurationShown": true,
+                                        "avgCaseDurationShown": true,
+                                        "maxCaseDurationShown": true,
+                                        "minFtLtDurationShown": false,
+                                        "medFtLtDurationShown": false,
+                                        "avgFtLtDurationShown": false,
+                                        "maxFtLtDurationShown": false
+                                    },
+                                    "selectedActivities": []
+                                },
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "logComplianceBreaches": {}
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                },
+                {
+                    "height": "400",
+                    "columns": [
+                        {
+                            "widthRatio": "1.0",
+                            "columnType": "table",
+                            "tablesSetting": {
+                                "sourceLogId": 20412,
+                                "sourceLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "presentedLogName": "SalesforcenOfficenCasenHandlingRISOR",
+                                "tablesDataType": "caseVariants",
+                                "attributeKey": "concept:name",
+                                "tablesSetType": "all",
+                                "headerFontColor": "#FFF",
+                                "headerBGColor": "DEFAULT",
+                                "headerFontSize": 14,
+                                "titleLabel": "Case variants",
+                                "sortColumnName": null,
+                                "firstTouchSetting": {
+                                    "ftDisplayType": "ALL_ACTIVITIES",
+                                    "ftStatsSetting": {
+                                        "caseCountShown": true,
+                                        "caseVariantCountShown": true,
+                                        "variabilityRatioShown": true,
+                                        "minCaseDurationShown": true,
+                                        "medCaseDurationShown": true,
+                                        "avgCaseDurationShown": true,
+                                        "maxCaseDurationShown": true,
+                                        "minFtLtDurationShown": false,
+                                        "medFtLtDurationShown": false,
+                                        "avgFtLtDurationShown": false,
+                                        "maxFtLtDurationShown": false
+                                    },
+                                    "selectedActivities": []
+                                },
+                                "presentedLogLabels": {
+                                    "SalesforcenOfficenCasenHandlingRISOR": "Salesforce Office Case Handling"
+                                },
+                                "logComplianceBreaches": {}
+                            }
+                        }
+                    ],
+                    "categoryColorMap": {}
+                }
+            ]
+        }
+    ],
+    "logNames": [
+        "Salesforce Office Case Handling"
+    ],
+    "logAttributes": {
+        "SalesforcenOfficenCasenHandlingRISOR": {
+            "caseAttributes": [
+                "paste_count",
+                "copy_count",
+                "agent_profile_id",
+                "machine_name"
+            ],
+            "eventAttributes": [
+                "Window",
+                "Activity",
+                "keypress_count",
+                "Start_Time",
+                "Step",
+                "Window Title",
+                "mouse_click_count",
+                "Case_ID",
+                "End_Time",
+                "Process Name",
+                "Window Element",
+                "duration_seconds",
+                "URL",
+                "Resource"
+            ],
+            "logLabel": "Salesforce Office Case Handling"
+        }
+    },
+    "templateName": "Task Mining Template",
+    "charts": [
+        {
+            "id": "avg_task_duration_by_hour",
+            "title": "Average Task Duration by Hour of Day",
+            "type": "violin",
+            "dataFields": [
+                "Start Time",
+                "duration_seconds",
+                "Process Name"
+            ],
+            "xField": "hour(Start Time)",
+            "yField": "duration_seconds",
+            "categoryField": "Process Name",
+            "description": "Shows the variation in task duration across different hours of the day."
+        },
+        {
+            "id": "peak_workload_heatmap",
+            "title": "Peak Workload Heatmap",
+            "type": "heatmap",
+            "dataFields": [
+                "Start Time",
+                "Resource",
+                "Case_ID"
+            ],
+            "xField": "hour(Start Time)",
+            "yField": "Resource",
+            "valueField": "count(Case_ID)",
+            "description": "Highlights peak workload by resource and time of day."
+        },
+        {
+            "id": "avg_case_duration_by_week",
+            "title": "Average Case Duration by Week",
+            "type": "line",
+            "dataFields": [
+                "Case_ID",
+                "Start Time",
+                "EndTime"
+            ],
+            "xField": "week(Start Time)",
+            "yField": "avg(duration_seconds)",
+            "description": "Shows average case duration over weekly intervals."
+        },
+        {
+            "id": "time_in_status_area",
+            "title": "Time in Status Analysis",
+            "type": "stacked_area",
+            "dataFields": [
+                "Activity",
+                "Start Time",
+                "EndTime"
+            ],
+            "xField": "Start_Time",
+            "yField": "duration_seconds",
+            "categoryField": "Activity",
+            "description": "Displays time spent in different activities over time."
+        },
+        {
+            "id": "case_aging_funnel",
+            "title": "Case Aging Funnel",
+            "type": "funnel",
+            "dataFields": [
+                "Case_ID",
+                "Start Time",
+                "EndTime"
+            ],
+            "bucketField": "case_age_buckets",
+            "valueField": "count(Case_ID)",
+            "description": "Shows distribution of cases by age buckets."
+        },
+        {
+            "id": "lead_lag_variability",
+            "title": "Lead/Lag Time Variability",
+            "type": "scatter",
+            "dataFields": [
+                "Case_ID",
+                "Start Time",
+                "EndTime",
+                "Resource",
+                "Process Name"
+            ],
+            "xField": "Start_Time",
+            "yField": "duration_seconds",
+            "categoryField": "Process Name",
+            "description": "Displays lead and lag time variability for each case."
+        },
+        {
+            "id": "employee_workday_profile",
+            "title": "Employee Workday Profile",
+            "type": "gantt",
+            "dataFields": [
+                "Start Time",
+                "EndTime",
+                "Resource"
+            ],
+            "xField": "Start_Time",
+            "endField": "EndTime",
+            "yField": "Resource",
+            "description": "Shows the working patterns of employees during the day."
+        },
+        {
+            "id": "workflow_sankey",
+            "title": "Workflow Path Analysis",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Process Name",
+                "Activity",
+                "Resource"
+            ],
+            "sourceField": "Process Name",
+            "targetField": "Activity",
+            "valueField": "count(Case_ID)",
+            "description": "Shows the flow of cases through different processes and activities."
+        },
+        {
+            "id": "resource_share_pie",
+            "title": "Resource Share by Cases",
+            "type": "pie",
+            "dataFields": [
+                "Resource",
+                "Case_ID"
+            ],
+            "categoryField": "Resource",
+            "valueField": "count(Case_ID)",
+            "description": "Shows the distribution of cases handled by each resource."
+        },
+        {
+            "id": "application_usage_pie",
+            "title": "Application Usage Share",
+            "type": "pie",
+            "dataFields": [
+                "Window",
+                "duration_seconds"
+            ],
+            "categoryField": "Window",
+            "valueField": "sum(duration_seconds)",
+            "description": "Shows the proportion of total time spent per application window."
+        },
+        {
+            "id": "case_duration_boxplot",
+            "title": "Case Duration Distribution by Resource",
+            "type": "boxplot",
+            "dataFields": [
+                "Resource",
+                "duration_seconds"
+            ],
+            "xField": "Resource",
+            "yField": "duration_seconds",
+            "description": "Shows the distribution of case durations for each resource."
+        }
+    ],
+    "sections": [
+        {
+            "id": "time_analysis",
+            "title": "Time-Based Analysis",
+            "charts": [
+                "avg_task_duration_by_hour",
+                "peak_workload_heatmap",
+                "avg_case_duration_by_week",
+                "time_in_status_area",
+                "case_aging_funnel",
+                "lead_lag_variability",
+                "employee_workday_profile"
+            ]
+        },
+        {
+            "id": "boxplots",
+            "title": "Boxplots",
+            "charts": [
+                "avg_task_duration_by_hour",
+                "case_duration_boxplot"
+            ]
+        },
+        {
+            "id": "piecharts",
+            "title": "Pie Charts",
+            "charts": [
+                "resource_share_pie",
+                "application_usage_pie"
+            ]
+        },
+        {
+            "id": "sankey",
+            "title": "Workflow Analysis",
+            "charts": [
+                "workflow_sankey"
+            ]
+        }
+    ]
+}

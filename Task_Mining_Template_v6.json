@@ -1,0 +1,133 @@
+{
+    "title": "New Metrics Dashboard",
+    "sections": [
+        {
+            "id": "sankey_section",
+            "title": "Sankey Diagrams",
+            "charts": [
+                "sankey_1",
+                "sankey_2",
+                "sankey_3",
+                "sankey_4",
+                "sankey_5"
+            ]
+        },
+        {
+            "id": "boxplots_section",
+            "title": "Boxplots",
+            "charts": [
+                "boxplot_case_duration_by_resource",
+                "boxplot_case_duration_by_process",
+                "boxplot_mouse_clicks_by_resource"
+            ]
+        }
+    ],
+    "charts": [
+        {
+            "id": "sankey_1",
+            "title": "Sankey 1: Process Name \u2192 Activity",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Process Name",
+                "Activity"
+            ],
+            "sourceField": "Process Name",
+            "targetField": "Activity",
+            "valueField": "count(Case_ID)",
+            "description": "Shows flow from Process Name to Activity with count of cases."
+        },
+        {
+            "id": "sankey_2",
+            "title": "Sankey 2: Resource \u2192 Process Name",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Resource",
+                "Process Name"
+            ],
+            "sourceField": "Resource",
+            "targetField": "Process Name",
+            "valueField": "count(Case_ID)",
+            "description": "Shows flow from Resource to Process Name with count of cases."
+        },
+        {
+            "id": "sankey_3",
+            "title": "Sankey 3: Resource \u2192 Activity",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Resource",
+                "Activity"
+            ],
+            "sourceField": "Resource",
+            "targetField": "Activity",
+            "valueField": "count(Case_ID)",
+            "description": "Shows flow from Resource to Activity with count of cases."
+        },
+        {
+            "id": "sankey_4",
+            "title": "Sankey 4: Process Name \u2192 Window",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Process Name",
+                "Window"
+            ],
+            "sourceField": "Process Name",
+            "targetField": "Window",
+            "valueField": "count(Case_ID)",
+            "description": "Shows flow from Process Name to Window with count of cases."
+        },
+        {
+            "id": "sankey_5",
+            "title": "Sankey 5: Resource \u2192 Window",
+            "type": "sankey",
+            "dataFields": [
+                "Case_ID",
+                "Resource",
+                "Window"
+            ],
+            "sourceField": "Resource",
+            "targetField": "Window",
+            "valueField": "count(Case_ID)",
+            "description": "Shows flow from Resource to Window with count of cases."
+        },
+        {
+            "id": "boxplot_case_duration_by_resource",
+            "title": "Case Duration by Resource",
+            "type": "boxplot",
+            "dataFields": [
+                "Resource",
+                "duration_seconds"
+            ],
+            "xField": "Resource",
+            "yField": "duration_seconds",
+            "description": "Distribution of case durations grouped by resource."
+        },
+        {
+            "id": "boxplot_case_duration_by_process",
+            "title": "Case Duration by Process",
+            "type": "boxplot",
+            "dataFields": [
+                "Process Name",
+                "duration_seconds"
+            ],
+            "xField": "Process Name",
+            "yField": "duration_seconds",
+            "description": "Distribution of case durations grouped by process name."
+        },
+        {
+            "id": "boxplot_mouse_clicks_by_resource",
+            "title": "Mouse Clicks by Resource",
+            "type": "boxplot",
+            "dataFields": [
+                "Resource",
+                "mouse_click_count"
+            ],
+            "xField": "Resource",
+            "yField": "mouse_click_count",
+            "description": "Distribution of mouse clicks grouped by resource."
+        }
+    ]
+}
