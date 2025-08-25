@@ -1,29 +1,27 @@
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Temporary files
-*.tmp
-*.temp
-*~
+# dependencies
+/node_modules
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
+# next.js
+/.next/
+/out/
 
-# Logs
-*.log
+# production
+/build
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Backup files
-*.bak
-*.backup
+# env files
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
