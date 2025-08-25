@@ -27,20 +27,29 @@ The dashboard supports analysis for the following teams:
 - Customer Support
 - Operations & Admins
 
-## Files
+## Project Structure
 
-### Dashboard Templates
+### 🎨 **Frontend Application**
+- **Next.js 15** with TypeScript and Tailwind CSS
+- **shadcn/ui** components for modern UI design
+- **Responsive dashboard** with Teams Overview, Task Level Analysis, and Resources canvases
+- **Interactive charts** and data visualizations
+- **Real-time filtering** by Team and Resource
+
+### 📊 **Dashboard Templates**
 - `Task_Mining_Template_v11.json` - **Latest version** with Teams functionality
+- `Task_Mining_Template_v13.json` - **Newest version** with enhanced features
+- `Task_Mining_Template_v12.json` - Intermediate version
 - `Task_Mining_Template_v9.json` - Base template
 - `Task_Mining_Template_v8.json` - Previous version
 - `Task_Mining_Template_v7.json` - Previous version
 
-### Data Sources
+### 📁 **Data Sources**
 - `SalesforceOffice_with_Teams.xlsx` - **Primary data source** with Team attributes
 - `SalesforceOffice_synthetic_varied_100users_V1.csv` - Synthetic data for testing
 - `SalesforceOffice_100users.csv` - Additional test data
 
-### KPI Templates
+### 📈 **KPI Templates**
 - `Task_Mining_Template_KPI_metrics_v5.json` - KPI-focused template
 - `Task_Mining_Template_KPI_v4.json` - KPI template version 4
 - `Task_Mining_Template_KPI_v3.json` - KPI template version 3
@@ -68,18 +77,42 @@ The dashboard supports analysis for the following teams:
 
 ## Setup Instructions
 
-### 1. Load Dashboard Template
+### 🚀 **Frontend Development**
+
+#### 1. Install Dependencies
+```bash
+# Install Node.js dependencies
+npm install
+# or
+pnpm install
+```
+
+#### 2. Run Development Server
+```bash
+# Start the development server
+npm run dev
+# or
+pnpm dev
+```
+
+#### 3. Access the Dashboard
+- Open [http://localhost:3000](http://localhost:3000) in your browser
+- The dashboard will load with Teams Overview, Task Level Analysis, and Resources canvases
+
+### 📊 **Dashboard Template Setup**
+
+#### 1. Load Dashboard Template
 ```bash
 # Use the latest template with Teams functionality
 Task_Mining_Template_v11.json
 ```
 
-### 2. Connect Data Source
+#### 2. Connect Data Source
 - **Primary**: `SalesforceOffice_with_Teams.xlsx`
 - **Series Name**: `SalesforcenOfficenCasenHandlingRISOR`
 - **Log ID**: 20412
 
-### 3. Configure Filters
+#### 3. Configure Filters
 - **Team Filter**: Global multi-select filter (default: All teams)
 - **Resource Filter**: Secondary filter for individual user analysis
 
