@@ -8,25 +8,32 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CalendarIcon, Filter } from "lucide-react"
 import { format } from "date-fns"
-
-const teams = [
-  "Sales - Enterprise",
-  "Sales - SMB",
-  "Sales - Inside Sales",
-  "Account Managers - Enterprise",
-  "Account Managers - SMB",
-  "Analytics Team",
-  "Customer Support",
-  "Operations & Admins",
-]
-
-const resources = ["John Smith", "Sarah Johnson", "Mike Chen", "Lisa Rodriguez", "David Kim", "Emma Wilson"]
+import { useSupabaseData } from "@/hooks/use-supabase-data"
 
 export function DashboardFilters() {
+  const { teams, resources, selectedTeams, selectedResources, setSelectedTeams, setSelectedResources } = useSupabaseData()
   const [selectedTeam, setSelectedTeam] = useState<string>("")
   const [selectedResource, setSelectedResource] = useState<string>("")
   const [dateFrom, setDateFrom] = useState<Date>()
   const [dateTo, setDateTo] = useState<Date>()
+
+  const handleTeamChange = (value: string) => {
+    setSelectedTeam(value)
+    if (value === "all") {
+      setSelectedTeams([])
+    } else {
+      setSelectedTeams([value])
+    }
+  }
+
+  const handleResourceChange = (value: string) => {
+    setSelectedResource(value)
+    if (value === "all") {
+      setSelectedResources([])
+    } else {
+      setSelectedResources([value])
+    }
+  }
 
   return (
     <Card className="p-6">
@@ -38,7 +45,7 @@ export function DashboardFilters() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Team</label>
-          <Select value={selectedTeam} onValueChange={setSelectedTeam}>
+          <Select value={selectedTeam} onValueChange={handleTeamChange}>
             <SelectTrigger>
               <SelectValue placeholder="Select team" />
             </SelectTrigger>
@@ -55,7 +62,7 @@ export function DashboardFilters() {
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Resource</label>
-          <Select value={selectedResource} onValueChange={setSelectedResource}>
+          <Select value={selectedResource} onValueChange={handleResourceChange}>
             <SelectTrigger>
               <SelectValue placeholder="Select resource" />
             </SelectTrigger>
