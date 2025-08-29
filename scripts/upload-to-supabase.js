@@ -22,28 +22,28 @@ async function uploadData() {
     fs.createReadStream('SalesforceOffice_with_Teams.csv')
       .pipe(csv())
       .on('data', (data) => {
-        // Transform the data to match our database schema
-        const transformedData = {
-          Case_ID: data.Case_ID,
-          agent_profile_id: data.agent_profile_id,
-          Resource: data.Resource,
-          machine_name: data.machine_name,
-          duration_seconds: parseInt(data.duration_seconds) || 0,
-          Process_Name: data['Process Name'],
-          Window_Title: data['Window Title'],
-          URL: data.URL,
-          Window: data.Window,
-          Activity: data.Activity,
-          Step: data.Step,
-          Window_Element: data['Window Element'],
-          mouse_click_count: parseInt(data.mouse_click_count) || 0,
-          keypress_count: parseInt(data.keypress_count) || 0,
-          copy_count: parseInt(data.copy_count) || 0,
-          paste_count: parseInt(data.paste_count) || 0,
-          Start_Time: data['Start Time'],
-          EndTime: data.EndTime,
-          Team: data.Team
-        };
+                 // Transform the data to match our database schema
+         const transformedData = {
+           "Case_ID": data.Case_ID,
+           agent_profile_id: data.agent_profile_id,
+           "Resource": data.Resource,
+           machine_name: data.machine_name,
+           duration_seconds: parseInt(data.duration_seconds) || 0,
+           "Process_Name": data['Process Name'],
+           "Window_Title": data['Window Title'],
+           "URL": data.URL,
+           "Window": data.Window,
+           "Activity": data.Activity,
+           "Step": data.Step,
+           "Window_Element": data['Window Element'],
+           mouse_click_count: parseInt(data.mouse_click_count) || 0,
+           keypress_count: parseInt(data.keypress_count) || 0,
+           copy_count: parseInt(data.copy_count) || 0,
+           paste_count: parseInt(data.paste_count) || 0,
+           "Start_Time": data['Start Time'],
+           "EndTime": data.EndTime,
+           "Team": data.Team
+         };
         results.push(transformedData);
       })
       .on('end', async () => {

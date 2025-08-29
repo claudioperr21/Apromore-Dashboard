@@ -45,8 +45,8 @@ export const getSalesforceData = async () => {
 export const getTeams = async () => {
   const { data, error } = await supabase
     .from('salesforce_data')
-    .select('Team')
-    .not('Team', 'is', null)
+    .select('"Team"')
+    .not('"Team"', 'is', null)
   
   if (error) {
     console.error('Error fetching teams:', error)
@@ -60,8 +60,8 @@ export const getTeams = async () => {
 export const getResources = async () => {
   const { data, error } = await supabase
     .from('salesforce_data')
-    .select('Resource')
-    .not('Resource', 'is', null)
+    .select('"Resource"')
+    .not('"Resource"', 'is', null)
   
   if (error) {
     console.error('Error fetching resources:', error)
@@ -76,11 +76,11 @@ export const getFilteredData = async (teamFilter?: string[], resourceFilter?: st
   let query = supabase.from('salesforce_data').select('*')
   
   if (teamFilter && teamFilter.length > 0) {
-    query = query.in('Team', teamFilter)
+    query = query.in('"Team"', teamFilter)
   }
   
   if (resourceFilter && resourceFilter.length > 0) {
-    query = query.in('Resource', resourceFilter)
+    query = query.in('"Resource"', resourceFilter)
   }
   
   const { data, error } = await query
