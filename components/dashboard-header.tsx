@@ -1,18 +1,36 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { useSupabaseData } from "@/hooks/use-supabase-data"
+
 export function DashboardHeader() {
+  const { loading, amadeusCaseStats, amadeusAgentStats } = useSupabaseData()
+
   return (
-    <header className="border-b bg-card">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Salesforce Task Mining Dashboard</h1>
-            <p className="text-muted-foreground mt-2">
-              Interactive insights into Salesforce Office Case Handling with a teams-first perspective
-            </p>
-          </div>
+    <header className="border-b">
+      <div className="flex h-16 items-center px-4">
+        <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-primary rounded-full"></div>
-            <span className="text-sm text-muted-foreground">Live Data</span>
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">AP</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold">Apromore Dashboard</h1>
+              <p className="text-sm text-muted-foreground">
+                {loading ? "Loading..." : `Salesforce + Amadeus Analytics (${amadeusCaseStats.length} cases)`}
+              </p>
+            </div>
           </div>
+        </div>
+        
+        <div className="ml-auto flex items-center space-x-4">
+          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+            <span className="hidden md:inline">Salesforce CRM</span>
+            <span className="hidden md:inline">•</span>
+            <span className="hidden md:inline">Amadeus Process Mining</span>
+          </div>
+          <ThemeToggle />
         </div>
       </div>
     </header>

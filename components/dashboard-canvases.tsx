@@ -1,28 +1,52 @@
 "use client"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 import { TeamsOverviewCanvas } from "@/components/canvases/teams-overview-canvas"
 import { TaskLevelCanvas } from "@/components/canvases/task-level-canvas"
 import { ResourcesCanvas } from "@/components/canvases/resources-canvas"
+import { AmadeusCanvas } from "@/components/canvases/amadeus-canvas"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useSupabaseData } from "@/hooks/use-supabase-data"
 
 export function DashboardCanvases() {
+  const { 
+    data, 
+    teams, 
+    resources, 
+    getTeamStats, 
+    getResourceStats, 
+    getWindowStats, 
+    getActivityStats,
+    amadeusCaseStats,
+    amadeusAgentStats,
+    amadeusWindowStats,
+    amadeusActivityStats
+  } = useSupabaseData()
+
+  const teamStats = getTeamStats()
+  const resourceStats = getResourceStats()
+  const windowStats = getWindowStats()
+  const activityStats = getActivityStats()
+
   return (
-    <Tabs defaultValue="teams" className="space-y-6">
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="teams">Teams Overview</TabsTrigger>
-        <TabsTrigger value="tasks">Task Level Analysis</TabsTrigger>
-        <TabsTrigger value="resources">Resources</TabsTrigger>
+    <Tabs defaultValue="salesforce" className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="salesforce">Salesforce Analytics</TabsTrigger>
+        <TabsTrigger value="amadeus">Amadeus Process Mining</TabsTrigger>
       </TabsList>
-
-      <TabsContent value="teams" className="space-y-6">
-        <TeamsOverviewCanvas />
+      
+      <TabsContent value="salesforce" className="space-y-6">
+        <TeamsOverviewCanvas teamStats={teamStats} />
+        <TaskLevelCanvas windowStats={windowStats} activityStats={activityStats} />
+        <ResourcesCanvas resourceStats={resourceStats} />
       </TabsContent>
-
-      <TabsContent value="tasks" className="space-y-6">
-        <TaskLevelCanvas />
-      </TabsContent>
-
-      <TabsContent value="resources" className="space-y-6">
-        <ResourcesCanvas />
+      
+      <TabsContent value="amadeus" className="space-y-6">
+        <AmadeusCanvas 
+          caseStats={amadeusCaseStats}
+          agentStats={amadeusAgentStats}
+          windowStats={amadeusWindowStats}
+          activityStats={amadeusActivityStats}
+        />
       </TabsContent>
     </Tabs>
   )

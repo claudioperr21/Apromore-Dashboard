@@ -1,31 +1,86 @@
 import { useState, useEffect } from 'react'
-import { getSalesforceData, getTeams, getResources, getFilteredData, SalesforceData } from '@/lib/supabase'
+import { 
+  getSalesforceData, 
+  getTeams, 
+  getResources, 
+  getFilteredData, 
+  SalesforceData,
+  getAmadeusData,
+  getAmadeusCaseStats,
+  getAmadeusAgentStats,
+  getAmadeusWindowStats,
+  getAmadeusActivityStats,
+  AmadeusData,
+  AmadeusCaseStats,
+  AmadeusAgentStats,
+  AmadeusWindowStats,
+  AmadeusActivityStats
+} from '@/lib/supabase'
 
 export const useSupabaseData = () => {
+  // Salesforce data state
   const [data, setData] = useState<SalesforceData[]>([])
   const [teams, setTeams] = useState<string[]>([])
   const [resources, setResources] = useState<string[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [selectedTeams, setSelectedTeams] = useState<string[]>([])
   const [selectedResources, setSelectedResources] = useState<string[]>([])
+
+  // Amadeus data state
+  const [amadeusData, setAmadeusData] = useState<AmadeusData[]>([])
+  const [amadeusCaseStats, setAmadeusCaseStats] = useState<AmadeusCaseStats[]>([])
+  const [amadeusAgentStats, setAmadeusAgentStats] = useState<AmadeusAgentStats[]>([])
+  const [amadeusWindowStats, setAmadeusWindowStats] = useState<AmadeusWindowStats[]>([])
+  const [amadeusActivityStats, setAmadeusActivityStats] = useState<AmadeusActivityStats[]>([])
+
+  // Common state
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   // Load initial data
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true)
-        const [salesforceData, teamsData, resourcesData] = await Promise.all([
+        const [
+          salesforceData, 
+          teamsData, 
+          resourcesData,
+          amadeusDataResult,
+          amadeusCaseStatsResult,
+          amadeusAgentStatsResult,
+          amadeusWindowStatsResult,
+          amadeusActivityStatsResult
+        ] = await Promise.all([
           getSalesforceData(),
           getTeams(),
-          getResources()
+          getResources(),
+          getAmadeusData(),
+          getAmadeusCaseStats(),
+          getAmadeusAgentStats(),
+          getAmadeusWindowStats(),
+          getAmadeusActivityStats()
         ])
         
         setData(salesforceData)
         setTeams(teamsData)
         setResources(resourcesData)
+        setAmadeusData(amadeusDataResult)
+        setAmadeusCaseStats(amadeusCaseStatsResult)
+        setAmadeusAgentStats(amadeusAgentStatsResult)
+        setAmadeusWindowStats(amadeusWindowStatsResult)
+        setAmadeusActivityStats(amadeusActivityStatsResult)
       } catch (err) {
+        console.error('Error loading data:', err)
         setError(err instanceof Error ? err.message : 'Failed to load data')
+        // Set empty arrays as fallback
+        setData([])
+        setTeams([])
+        setResources([])
+        setAmadeusData([])
+        setAmadeusCaseStats([])
+        setAmadeusAgentStats([])
+        setAmadeusWindowStats([])
+        setAmadeusActivityStats([])
       } finally {
         setLoading(false)
       }
@@ -34,7 +89,7 @@ export const useSupabaseData = () => {
     loadData()
   }, [])
 
-  // Load filtered data when filters change
+  // Load filtered Salesforce data when filters change
   useEffect(() => {
     const loadFilteredData = async () => {
       if (selectedTeams.length === 0 && selectedResources.length === 0) {
@@ -58,7 +113,7 @@ export const useSupabaseData = () => {
     loadFilteredData()
   }, [selectedTeams, selectedResources])
 
-  // Helper functions for data analysis
+  // Helper functions for Salesforce data analysis
   const getTeamStats = () => {
     const teamStats = teams.map(team => {
       const teamData = data.filter(item => item.Team === team)
@@ -133,12 +188,36 @@ export const useSupabaseData = () => {
     return Object.values(activityStats)
   }
 
+  // Helper functions for Amadeus data analysis
+  const getAmadeusTopCases = (limit: number = 10) => {
+    return amadeusCaseStats
+      .sort((a, b) => b.total_duration - a.total_duration)
+      .slice(0, limit)
+  }
+
+  const getAmadeusTopAgents = (limit: number = 10) => {
+    return amadeusAgentStats
+      .sort((a, b) => b.total_cases - a.total_cases)
+      .slice(0, limit)
+  }
+
+  const getAmadeusTopApplications = (limit: number = 10) => {
+    return amadeusWindowStats
+      .sort((a, b) => b.total_usage_time - a.total_usage_time)
+      .slice(0, limit)
+  }
+
+  const getAmadeusTopActivities = (limit: number = 10) => {
+    return amadeusActivityStats
+      .sort((a, b) => b.total_occurrences - a.total_occurrences)
+      .slice(0, limit)
+  }
+
   return {
+    // Salesforce data
     data,
     teams,
     resources,
-    loading,
-    error,
     selectedTeams,
     selectedResources,
     setSelectedTeams,
@@ -146,6 +225,21 @@ export const useSupabaseData = () => {
     getTeamStats,
     getResourceStats,
     getWindowStats,
-    getActivityStats
+    getActivityStats,
+    
+    // Amadeus data
+    amadeusData,
+    amadeusCaseStats,
+    amadeusAgentStats,
+    amadeusWindowStats,
+    amadeusActivityStats,
+    getAmadeusTopCases,
+    getAmadeusTopAgents,
+    getAmadeusTopApplications,
+    getAmadeusTopActivities,
+    
+    // Common state
+    loading,
+    error
   }
 }
