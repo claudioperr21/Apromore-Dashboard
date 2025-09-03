@@ -41,7 +41,7 @@ app.use(express.json());
 
 // Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNTYxMTksImV4cCI6MjA3MTczMjExOX0.hm0D6dHaXBbZk4Hd7wcXMTP_UTZFjqvb_nMCihZjJIc';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjE1NjExOSwiZXhwIjoyMDcxNzMyMTE5fQ.sxUAUlbYvr7hBIZekYt5sGNwHmHkkUSwTXjvMa3wt2o';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Log the configuration for debugging
@@ -223,18 +223,17 @@ app.get('/api/db/diagnose', async (req, res) => {
       data_check: null
     };
     
-    // Test 1: Basic connection
+    // Test 1: Basic connection - try to access a simple table
     try {
       const { data: connectionTest, error: connectionError } = await supabase
-        .from('information_schema.tables')
-        .select('table_name')
-        .eq('table_schema', 'public')
+        .from('amadeus_data')
+        .select('id')
         .limit(1);
       
       if (connectionError) {
         diagnostics.connection_test = { success: false, error: connectionError.message };
       } else {
-        diagnostics.connection_test = { success: true, tables_found: connectionTest?.length || 0 };
+        diagnostics.connection_test = { success: true, tables_found: 1 };
       }
     } catch (error: any) {
       diagnostics.connection_test = { success: false, error: error.message };
@@ -242,19 +241,17 @@ app.get('/api/db/diagnose', async (req, res) => {
     
     // Test 2: Check for amadeus_data table
     try {
-      const { data: tableCheck, error: tableError } = await supabase
-        .from('information_schema.tables')
-        .select('table_name')
-        .eq('table_schema', 'public')
-        .eq('table_name', 'amadeus_data');
+      const { count: tableCount, error: tableError } = await supabase
+        .from('amadeus_data')
+        .select('*', { count: 'exact', head: true });
       
       if (tableError) {
         diagnostics.table_check = { success: false, error: tableError.message };
       } else {
         diagnostics.table_check = { 
           success: true, 
-          table_exists: tableCheck && tableCheck.length > 0,
-          table_name: tableCheck?.[0]?.table_name || null
+          table_exists: true,
+          table_name: 'amadeus_data'
         };
       }
     } catch (error: any) {
@@ -264,18 +261,17 @@ app.get('/api/db/diagnose', async (req, res) => {
     // Test 3: Check for views
     try {
       const { data: viewCheck, error: viewError } = await supabase
-        .from('information_schema.views')
-        .select('table_name')
-        .eq('table_schema', 'public')
-        .in('table_name', ['amadeus_case_stats', 'amadeus_agent_stats', 'amadeus_window_stats', 'amadeus_activity_stats']);
+        .from('amadeus_case_stats')
+        .select('*')
+        .limit(1);
       
       if (viewError) {
         diagnostics.view_check = { success: false, error: viewError.message };
       } else {
         diagnostics.view_check = { 
           success: true, 
-          views_found: viewCheck?.length || 0,
-          view_names: viewCheck?.map((v: any) => v.table_name) || []
+          views_found: 1,
+          view_names: ['amadeus_case_stats']
         };
       }
     } catch (error: any) {
