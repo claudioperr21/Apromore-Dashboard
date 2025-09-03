@@ -44,6 +44,12 @@ const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.su
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNTYxMTksImV4cCI6MjA3MTczMjExOX0.hm0D6dHaXBbZk4Hd7wcXMTP_UTZFjqvb_nMCihZjJIc';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+// Log the configuration for debugging
+console.log('🔧 Supabase Configuration:');
+console.log('  URL:', supabaseUrl);
+console.log('  Key Type:', supabaseServiceKey.includes('service_role') ? 'Service Role' : 'Anon Key');
+console.log('  Key Length:', supabaseServiceKey.length);
+
 // OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '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',
@@ -96,20 +102,64 @@ app.get('/api/db/schema', async (req, res) => {
 // Database data check endpoint
 app.get('/api/db/data-check', async (req, res) => {
   try {
+    console.log('🔍 Checking database connectivity...');
+    
+    // First, test basic connection
+    const { data: connectionTest, error: connectionError } = await supabase
+      .from('information_schema.tables')
+      .select('table_name')
+      .eq('table_schema', 'public')
+      .eq('table_name', 'amadeus_data')
+      .limit(1);
+    
+    if (connectionError) {
+      console.error('❌ Database connection error:', connectionError);
+      res.json({
+        success: true,
+        data: {
+          amadeus_data: { exists: false, count: 0, error: `Connection error: ${connectionError.message}` },
+          connection_status: 'failed'
+        }
+      });
+      return;
+    }
+    
+    console.log('✅ Database connection successful');
+    
+    // Check if amadeus_data table exists
+    if (!connectionTest || connectionTest.length === 0) {
+      console.log('❌ amadeus_data table not found in schema');
+      res.json({
+        success: true,
+        data: {
+          amadeus_data: { exists: false, count: 0, error: 'Table not found in schema' },
+          connection_status: 'connected',
+          available_tables: []
+        }
+      });
+      return;
+    }
+    
+    console.log('✅ amadeus_data table found in schema');
+    
     // Check if amadeus_data table has data
     const { count: amadeusCount, error: amadeusError } = await supabase
       .from('amadeus_data')
       .select('*', { count: 'exact', head: true });
     
     if (amadeusError) {
+      console.error('❌ Error counting amadeus_data:', amadeusError);
       res.json({
         success: true,
         data: {
-          amadeus_data: { exists: false, count: 0, error: amadeusError.message }
+          amadeus_data: { exists: true, count: 0, error: amadeusError.message },
+          connection_status: 'connected'
         }
       });
       return;
     }
+    
+    console.log(`✅ amadeus_data table has ${amadeusCount} records`);
     
     // Check if salesforce tables have data
     const { count: teamCount, error: teamError } = await supabase
@@ -120,17 +170,18 @@ app.get('/api/db/data-check', async (req, res) => {
       success: true,
       data: {
         amadeus_data: { exists: true, count: amadeusCount || 0 },
-        team_stats: { exists: !teamError, count: teamCount || 0 }
+        team_stats: { exists: !teamError, count: teamCount || 0 },
+        connection_status: 'connected'
       }
     });
   } catch (error) {
-    console.error('Error checking database data:', error);
+    console.error('❌ Error checking database data:', error);
     res.status(500).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
   }
-});
+ });
 
 // Database setup instructions endpoint
 app.get('/api/db/setup-instructions', (req, res) => {
@@ -156,6 +207,106 @@ app.get('/api/db/setup-instructions', (req, res) => {
 // API Routes
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Dashboard Backend API is running!' });
+});
+
+// Database diagnostic endpoint
+app.get('/api/db/diagnose', async (req, res) => {
+  try {
+    console.log('🔍 Running database diagnostics...');
+    
+    const diagnostics: any = {
+      timestamp: new Date().toISOString(),
+      supabase_url: supabaseUrl,
+      connection_test: null,
+      table_check: null,
+      view_check: null,
+      data_check: null
+    };
+    
+    // Test 1: Basic connection
+    try {
+      const { data: connectionTest, error: connectionError } = await supabase
+        .from('information_schema.tables')
+        .select('table_name')
+        .eq('table_schema', 'public')
+        .limit(1);
+      
+      if (connectionError) {
+        diagnostics.connection_test = { success: false, error: connectionError.message };
+      } else {
+        diagnostics.connection_test = { success: true, tables_found: connectionTest?.length || 0 };
+      }
+    } catch (error: any) {
+      diagnostics.connection_test = { success: false, error: error.message };
+    }
+    
+    // Test 2: Check for amadeus_data table
+    try {
+      const { data: tableCheck, error: tableError } = await supabase
+        .from('information_schema.tables')
+        .select('table_name')
+        .eq('table_schema', 'public')
+        .eq('table_name', 'amadeus_data');
+      
+      if (tableError) {
+        diagnostics.table_check = { success: false, error: tableError.message };
+      } else {
+        diagnostics.table_check = { 
+          success: true, 
+          table_exists: tableCheck && tableCheck.length > 0,
+          table_name: tableCheck?.[0]?.table_name || null
+        };
+      }
+    } catch (error: any) {
+      diagnostics.table_check = { success: false, error: error.message };
+    }
+    
+    // Test 3: Check for views
+    try {
+      const { data: viewCheck, error: viewError } = await supabase
+        .from('information_schema.views')
+        .select('table_name')
+        .eq('table_schema', 'public')
+        .in('table_name', ['amadeus_case_stats', 'amadeus_agent_stats', 'amadeus_window_stats', 'amadeus_activity_stats']);
+      
+      if (viewError) {
+        diagnostics.view_check = { success: false, error: viewError.message };
+      } else {
+        diagnostics.view_check = { 
+          success: true, 
+          views_found: viewCheck?.length || 0,
+          view_names: viewCheck?.map((v: any) => v.table_name) || []
+        };
+      }
+    } catch (error: any) {
+      diagnostics.view_check = { success: false, error: error.message };
+    }
+    
+    // Test 4: Try to access amadeus_data directly
+    try {
+      const { count, error: dataError } = await supabase
+        .from('amadeus_data')
+        .select('*', { count: 'exact', head: true });
+      
+      if (dataError) {
+        diagnostics.data_check = { success: false, error: dataError.message };
+      } else {
+        diagnostics.data_check = { success: true, record_count: count || 0 };
+      }
+    } catch (error: any) {
+      diagnostics.data_check = { success: false, error: error.message };
+    }
+    
+    console.log('✅ Diagnostics completed');
+    res.json({ success: true, data: diagnostics });
+    
+  } catch (error: any) {
+    console.error('❌ Error running diagnostics:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Unknown error' 
+    });
+  }
 });
 
 // AI Chat endpoint
