@@ -7,7 +7,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOi
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Backend API configuration
-export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://dashboard-backend-2024.fly.dev'
+export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://server-holy-haze-7308.fly.dev'
 
 // API endpoints
 export const API_ENDPOINTS = {

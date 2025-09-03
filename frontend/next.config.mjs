@@ -13,7 +13,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   env: {
-    NEXT_PUBLIC_BACKEND_URL: 'https://dashboard-backend-2024.fly.dev',
+    NEXT_PUBLIC_BACKEND_URL: 'https://server-holy-haze-7308.fly.dev',
   },
 }
 
