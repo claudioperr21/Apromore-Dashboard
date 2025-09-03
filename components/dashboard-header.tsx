@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { useSupabaseData } from "@/hooks/use-supabase-data"
 
 export function DashboardHeader() {
@@ -18,19 +17,28 @@ export function DashboardHeader() {
             <div>
               <h1 className="text-xl font-bold">Apromore Dashboard</h1>
               <p className="text-sm text-muted-foreground">
-                {loading ? "Loading..." : `Salesforce + Amadeus Analytics (${amadeusCaseStats.length} cases)`}
+                Process Mining Analytics Platform
               </p>
             </div>
           </div>
         </div>
         
         <div className="ml-auto flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <span className="hidden md:inline">Salesforce CRM</span>
-            <span className="hidden md:inline">•</span>
-            <span className="hidden md:inline">Amadeus Process Mining</span>
-          </div>
-          <ThemeToggle />
+          {!loading && amadeusCaseStats && amadeusAgentStats && (
+            <div className="text-sm text-muted-foreground">
+              <span className="font-medium text-green-600">
+                ✓ Amadeus Data Loaded
+              </span>
+              <span className="mx-2">•</span>
+              <span>{amadeusCaseStats.length} Cases</span>
+              <span className="mx-2">•</span>
+              <span>{amadeusAgentStats.length} Agents</span>
+            </div>
+          )}
+          
+          <Button variant="outline" size="sm">
+            Settings
+          </Button>
         </div>
       </div>
     </header>
