@@ -18,7 +18,8 @@ const allowedOrigins = [
   'https://apromore-dashboard-r3jdlj3bd-claudper-7214s-projects.vercel.app',
   'https://apromore-dashboard-9itazk7oa-claudper-7214s-projects.vercel.app',
   'https://apromore-dashboard-20nuga8n5-claudper-7214s-projects.vercel.app',
-  'https://apromore-dashboard-jt9rz0mb8-claudper-7214s-projects.vercel.app'  // ✅ Latest deployment
+  'https://apromore-dashboard-jt9rz0mb8-claudper-7214s-projects.vercel.app',
+  'https://apromore-dashboard-q50cp8vh1-claudper-7214s-projects.vercel.app'  // ✅ Latest deployment
 ];
 
 // Middleware
