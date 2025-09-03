@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
+import OpenAI from 'openai';
 
 // Load environment variables
 dotenv.config();
@@ -23,6 +24,11 @@ const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.su
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+// OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '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',
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ 
@@ -35,6 +41,83 @@ app.get('/health', (req, res) => {
 // API Routes
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Dashboard Backend API is running!' });
+});
+
+// AI Chat endpoint
+app.post('/api/ai/chat', async (req, res) => {
+  try {
+    const { message, context } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Message is required' 
+      });
+    }
+
+    // Get relevant data context from Supabase
+    let dataContext = '';
+    try {
+      const [teamStats, resourceStats, amadeusStats] = await Promise.all([
+        supabase.from('team_stats').select('*').limit(3),
+        supabase.from('resource_stats').select('*').limit(3),
+        supabase.from('amadeus_case_stats').select('*').limit(3)
+      ]);
+
+      dataContext = `
+        Current Dashboard Data Context:
+        - Top Teams: ${teamStats.data?.map(t => `${t.Team} (${t.total_records} records)`).join(', ') || 'No data'}
+        - Top Resources: ${resourceStats.data?.map(r => `${r.Resource} (${r.total_records} records)`).join(', ') || 'No data'}
+        - Top Cases: ${amadeusStats.data?.map(c => `Case ${c.Case_ID} (${c.total_activities} activities)`).join(', ') || 'No data'}
+      `;
+    } catch (error) {
+      console.warn('Could not fetch data context:', error);
+      dataContext = 'Dashboard data context unavailable.';
+    }
+
+    // Create system prompt for the AI
+    const systemPrompt = `You are a Task Mining Assistant, an AI expert in process mining and workflow analysis. You help users understand their business processes, identify bottlenecks, and optimize workflows.
+
+${dataContext}
+
+Your role is to:
+1. Analyze process mining data and provide insights
+2. Help identify performance bottlenecks and optimization opportunities
+3. Explain complex workflow patterns in simple terms
+4. Suggest process improvements based on data analysis
+5. Answer questions about team performance, resource utilization, and process efficiency
+
+Keep responses concise, actionable, and focused on business value. Use the data context when available to provide specific insights.`;
+
+    // Call OpenAI API
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message }
+      ],
+      max_tokens: 500,
+      temperature: 0.7,
+    });
+
+    const aiResponse = completion.choices[0]?.message?.content || 'I apologize, but I was unable to generate a response.';
+
+    res.json({ 
+      success: true, 
+      data: {
+        response: aiResponse,
+        model: "gpt-4o-mini",
+        usage: completion.usage
+      }
+    });
+
+  } catch (error) {
+    console.error('Error in AI chat:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error in AI processing' 
+    });
+  }
 });
 
 // Salesforce data endpoints
@@ -267,6 +350,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Dashboard Backend Server running on port ${PORT}`);
   console.log(`📊 Health check available at http://localhost:${PORT}/health`);
   console.log(`🔗 API base URL: http://localhost:${PORT}/api`);
+  console.log(`🤖 AI Chat endpoint available at http://localhost:${PORT}/api/ai/chat`);
 });
 
 export default app;

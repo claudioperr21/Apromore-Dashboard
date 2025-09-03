@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Send, Bot, User } from "lucide-react"
+import { Send, Bot, User, Sparkles } from "lucide-react"
 import { useSupabaseData } from "@/hooks/use-supabase-data"
 
 interface ChatMessage {
@@ -20,7 +20,7 @@ export function TaskMiningAssistantCanvas() {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m your Task Mining Assistant. I can help you analyze process data, identify bottlenecks, and provide insights about your workflow. What would you like to know?',
+      content: 'Hello! I\'m your AI-powered Task Mining Assistant. I can analyze your process data, identify bottlenecks, and provide intelligent insights about your workflow. What would you like to know?',
       timestamp: new Date()
     }
   ])
@@ -52,21 +52,59 @@ export function TaskMiningAssistantCanvas() {
     setInputValue('')
     setIsLoading(true)
 
-    // Simulate AI response based on available data
-    setTimeout(() => {
-      const response = generateAIResponse(inputValue)
+    try {
+      // Call the AI backend
+      const response = await fetch('https://dashboard-backend-2024.fly.dev/api/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: inputValue,
+          context: {
+            hasSalesforceData: data && data.length > 0,
+            hasAmadeusData: amadeusData && amadeusData.length > 0,
+            teamCount: getTeamStats().length,
+            resourceCount: getResourceStats().length
+          }
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const result = await response.json()
+      
+      if (result.success) {
+        const assistantMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: result.data.response,
+          timestamp: new Date()
+        }
+        setMessages(prev => [...prev, assistantMessage])
+      } else {
+        throw new Error(result.error || 'Failed to get AI response')
+      }
+    } catch (error) {
+      console.error('Error calling AI backend:', error)
+      
+      // Fallback to simulated response if AI fails
+      const fallbackResponse = generateFallbackResponse(inputValue)
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response,
+        content: fallbackResponse,
         timestamp: new Date()
       }
       setMessages(prev => [...prev, assistantMessage])
+    } finally {
       setIsLoading(false)
-    }, 1000)
+    }
   }
 
-  const generateAIResponse = (userInput: string): string => {
+  const generateFallbackResponse = (userInput: string): string => {
     const input = userInput.toLowerCase()
     
     // Team performance analysis
@@ -136,9 +174,10 @@ Just ask me about any of these areas!`
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-5 w-5" />
           Task Mining Assistant
+          <Sparkles className="h-4 w-4 text-yellow-500" />
         </CardTitle>
         <CardDescription>
-          AI-powered insights for your process mining data. Ask questions about performance, bottlenecks, and workflow optimization.
+          AI-powered insights for your process mining data. Powered by GPT-4, I can analyze performance, identify bottlenecks, and suggest workflow optimizations.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -164,7 +203,7 @@ Just ask me about any of these areas!`
                       : 'bg-muted'
                   }`}
                 >
-                  <p className="text-sm">{message.content}</p>
+                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                   <p className="text-xs opacity-70 mt-1">
                     {message.timestamp.toLocaleTimeString()}
                   </p>
@@ -182,7 +221,7 @@ Just ask me about any of these areas!`
                   <Bot className="h-4 w-4" />
                 </div>
                 <div className="bg-muted rounded-lg px-3 py-2">
-                  <p className="text-sm">Thinking...</p>
+                  <p className="text-sm">🤖 AI is thinking...</p>
                 </div>
               </div>
             )}
@@ -195,7 +234,7 @@ Just ask me about any of these areas!`
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask about your process data..."
+            placeholder="Ask me about your process data, bottlenecks, or workflow optimization..."
             disabled={isLoading}
             className="flex-1"
           />
