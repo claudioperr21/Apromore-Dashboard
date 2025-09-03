@@ -2,7 +2,7 @@
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 
-app = "dashboard-backend-2024"
+app = "server-holy-haze-7308"
 primary_region = "iad"
 
 [build]
