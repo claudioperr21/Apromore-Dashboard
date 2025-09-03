@@ -41,7 +41,7 @@ app.use(express.json());
 
 // Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNTYxMTksImV4cCI6MjA3MTczMjExOX0.hm0D6dHaXBbZk4Hd7wcXMTP_UTZFjqvb_nMCihZjJIc';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // OpenAI client
