@@ -1,0 +1,288 @@
+{
+  "metadata": {
+    "generated": "2024-12-03T21:19:00Z",
+    "project": "Task Mining Dashboard",
+    "version": "1.0.0",
+    "analyzer": "Repo Advisor & Exporter"
+  },
+  "stack": {
+    "framework": "Next.js",
+    "frameworkVersion": "15.2.4",
+    "reactVersion": "19",
+    "typescriptVersion": "5",
+    "styling": "Tailwind CSS 4.1.9",
+    "uiLibrary": "shadcn/ui with Radix UI",
+    "icons": "Lucide React",
+    "charts": "Recharts",
+    "database": "Supabase (PostgreSQL)",
+    "deployment": "Vercel-ready"
+  },
+  "supabase": {
+    "projectId": "tjcstfigqpbswblykomp",
+    "url": "https://tjcstfigqpbswblykomp.supabase.co",
+    "clientLocation": "lib/supabase.ts",
+    "credentialsExposed": true,
+    "securityRisk": "CRITICAL",
+    "tables": [
+      "salesforce_data",
+      "amadeus_data"
+    ],
+    "views": [
+      "team_stats",
+      "resource_stats", 
+      "window_stats",
+      "amadeus_case_stats",
+      "amadeus_agent_stats",
+      "amadeus_window_stats",
+      "amadeus_activity_stats",
+      "amadeus_process_flow",
+      "amadeus_time_analysis",
+      "amadeus_team_stats",
+      "amadeus_efficiency_metrics",
+      "amadeus_app_switching"
+    ],
+    "rlsEnabled": true,
+    "rlsPolicies": "public read access",
+    "authentication": "none implemented",
+    "dataAccess": "client-side via React hooks",
+    "realTime": "enabled via subscriptions"
+  },
+  "vercel": {
+    "buildConfig": "next.config.mjs",
+    "eslintIgnored": true,
+    "typescriptErrorsIgnored": true,
+    "imagesUnoptimized": true,
+    "edgeCompatible": true,
+    "staticExportReady": true,
+    "buildCommands": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start"
+    }
+  },
+  "routes": [
+    {
+      "path": "/",
+      "purpose": "Main Dashboard",
+      "serverClient": "client",
+      "component": "app/page.tsx",
+      "notes": "Renders dashboard with tabs for Salesforce, Amadeus, and Task Mining Assistant"
+    },
+    {
+      "path": "/app/layout.tsx",
+      "purpose": "Root Layout",
+      "serverClient": "server",
+      "component": "Root layout with fonts and HTML structure",
+      "notes": "Server-side rendered layout component"
+    },
+    {
+      "path": "/components/dashboard-canvases.tsx",
+      "purpose": "Tab Navigation",
+      "serverClient": "client",
+      "component": "Dashboard tab management",
+      "notes": "Manages three main dashboard sections"
+    },
+    {
+      "path": "/hooks/use-supabase-data.ts",
+      "purpose": "Data Management",
+      "serverClient": "client",
+      "component": "Central data fetching hook",
+      "notes": "Handles all Supabase data operations and state"
+    },
+    {
+      "path": "/lib/supabase.ts",
+      "purpose": "Database Client",
+      "serverClient": "client",
+      "component": "Supabase configuration and types",
+      "notes": "Contains hardcoded credentials - SECURITY RISK"
+    }
+  ],
+  "env": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "value": "MASKED",
+      "required": true,
+      "current": "hardcoded in lib/supabase.ts",
+      "risk": "CRITICAL"
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "value": "MASKED",
+      "required": true,
+      "current": "hardcoded in lib/supabase.ts",
+      "risk": "CRITICAL"
+    }
+  ],
+  "risks": [
+    {
+      "id": "R1",
+      "severity": "P1",
+      "category": "Security",
+      "summary": "Exposed Supabase credentials in client bundle",
+      "description": "Database credentials are hardcoded in the client-side code, exposing them to all users",
+      "impact": "Unauthorized database access, potential data breaches",
+      "fix": "Move to environment variables",
+      "effort": "2 hours",
+      "evidence": ["lib/supabase.ts:4-5"],
+      "status": "open"
+    },
+    {
+      "id": "R2",
+      "severity": "P1",
+      "category": "Security",
+      "summary": "Public database access without authentication",
+      "description": "RLS policies allow anonymous read access to all data",
+      "impact": "Sensitive business data exposed to public",
+      "fix": "Implement proper authentication and RLS policies",
+      "effort": "1 day",
+      "evidence": ["scripts/setup-database.sql:35-40"],
+      "status": "open"
+    },
+    {
+      "id": "R3",
+      "severity": "P2",
+      "category": "Reliability",
+      "summary": "No error boundaries for crash protection",
+      "description": "Unhandled errors can crash entire dashboard",
+      "impact": "Poor user experience, potential data loss",
+      "fix": "Implement React Error Boundaries",
+      "effort": "4 hours",
+      "evidence": ["app/page.tsx:18-26"],
+      "status": "open"
+    },
+    {
+      "id": "R4",
+      "severity": "P2",
+      "category": "Quality",
+      "summary": "Build quality issues ignored",
+      "description": "ESLint and TypeScript errors ignored during builds",
+      "impact": "Production bugs, technical debt accumulation",
+      "fix": "Fix linting errors and enable strict builds",
+      "effort": "1-2 days",
+      "evidence": ["next.config.mjs:3-6"],
+      "status": "open"
+    },
+    {
+      "id": "R5",
+      "severity": "P2",
+      "category": "Reliability",
+      "summary": "No data validation",
+      "description": "Invalid data from Supabase could crash application",
+      "impact": "Application instability, incorrect analytics",
+      "fix": "Implement Zod schema validation",
+      "effort": "1 day",
+      "evidence": ["lib/supabase.ts:15-80"],
+      "status": "open"
+    },
+    {
+      "id": "R6",
+      "severity": "P3",
+      "category": "Performance",
+      "summary": "Missing caching strategy",
+      "description": "Repeated API calls to Supabase without caching",
+      "impact": "Higher costs, slower performance",
+      "fix": "Implement React Query or SWR for caching",
+      "effort": "2-3 days",
+      "evidence": ["hooks/use-supabase-data.ts"],
+      "status": "open"
+    },
+    {
+      "id": "R7",
+      "severity": "P3",
+      "category": "User Experience",
+      "summary": "No offline support",
+      "description": "Dashboard unusable without internet connection",
+      "impact": "Reduced productivity in offline scenarios",
+      "fix": "Implement service worker and offline data",
+      "effort": "3-5 days",
+      "evidence": ["app/page.tsx"],
+      "status": "open"
+    },
+    {
+      "id": "R8",
+      "severity": "P3",
+      "category": "Quality",
+      "summary": "Limited testing coverage",
+      "description": "No automated testing implemented",
+      "impact": "Regression bugs, deployment risks",
+      "fix": "Add Jest/React Testing Library tests",
+      "effort": "1-2 weeks",
+      "evidence": ["package.json"],
+      "status": "open"
+    }
+  ],
+  "features": {
+    "dashboard": {
+      "salesforce": "Team performance, resource utilization, window usage analytics",
+      "amadeus": "Process mining, case analysis, agent performance, workflow tracking",
+      "assistant": "AI-powered chat interface for data insights"
+    },
+    "data": {
+      "realTime": true,
+      "filtering": "Team and resource-based filtering",
+      "analytics": "Pre-computed views for performance metrics",
+      "visualization": "Charts and heatmaps for data representation"
+    },
+    "ui": {
+      "responsive": true,
+      "themes": "Dark/light mode support",
+      "components": "Modern shadcn/ui components",
+      "accessibility": "Radix UI primitives for accessibility"
+    }
+  },
+  "dependencies": {
+    "core": [
+      "next@15.2.4",
+      "react@19",
+      "react-dom@19",
+      "typescript@5"
+    ],
+    "ui": [
+      "@radix-ui/*",
+      "tailwindcss@4.1.9",
+      "lucide-react@0.454.0",
+      "recharts@latest"
+    ],
+    "data": [
+      "@supabase/supabase-js@2.56.0",
+      "zod@3.25.67"
+    ],
+    "forms": [
+      "react-hook-form@7.60.0",
+      "@hookform/resolvers@3.10.0"
+    ]
+  },
+  "database": {
+    "schema": {
+      "salesforce_data": {
+        "primaryKey": "id (BIGSERIAL)",
+        "keyFields": ["Case_ID", "Resource", "Team", "Window", "Activity"],
+        "metrics": ["duration_seconds", "mouse_click_count", "keypress_count"],
+        "indexes": ["Team", "Resource", "Window", "Activity", "Case_ID"]
+      },
+      "amadeus_data": {
+        "primaryKey": "id (BIGSERIAL)",
+        "keyFields": ["Case_ID", "agent_profile_id", "Window", "Activity", "Step"],
+        "metrics": ["duration_seconds", "mouse_click_count", "keypress_count"],
+        "indexes": ["Case_ID", "agent_profile_id", "Window", "Activity", "Start_Time"]
+      }
+    },
+    "views": {
+      "analytics": "Pre-computed aggregations for common queries",
+      "performance": "Optimized for dashboard rendering",
+      "realTime": "Support for live data updates"
+    }
+  },
+  "deployment": {
+    "platform": "Vercel",
+    "requirements": [
+      "Environment variables for Supabase credentials",
+      "Build command: npm run build",
+      "Output directory: .next"
+    ],
+    "environment": {
+      "node": "18+",
+      "npm": "latest"
+    }
+  }
+}
