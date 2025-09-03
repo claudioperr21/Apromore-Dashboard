@@ -16,7 +16,8 @@ const allowedOrigins = [
   'http://localhost:3000',
   'https://apromore-dashboard-new.vercel.app',
   'https://apromore-dashboard-r3jdlj3bd-claudper-7214s-projects.vercel.app',
-  'https://apromore-dashboard-9itazk7oa-claudper-7214s-projects.vercel.app'
+  'https://apromore-dashboard-9itazk7oa-claudper-7214s-projects.vercel.app',
+  'https://apromore-dashboard-20nuga8n5-claudper-7214s-projects.vercel.app'  // ✅ Added!
 ];
 
 // Middleware
