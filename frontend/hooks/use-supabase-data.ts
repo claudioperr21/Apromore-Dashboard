@@ -45,19 +45,8 @@ export function useSupabaseData() {
         setLoading(true)
         setError(null)
 
-        // Fetch all data in parallel
-        const [
-          salesforceData,
-          amadeusDataResult,
-          teamStatsResult,
-          resourceStatsResult,
-          windowStatsResult,
-          activityStatsResult,
-          amadeusCaseStatsResult,
-          amadeusAgentStatsResult,
-          amadeusWindowStatsResult,
-          amadeusActivityStatsResult,
-        ] = await Promise.all([
+        // Fetch all data in parallel with individual error handling
+        const results = await Promise.allSettled([
           getSalesforceData(),
           getAmadeusData(),
           getTeamStats(),
@@ -70,6 +59,32 @@ export function useSupabaseData() {
           getAmadeusActivityStats(),
         ])
 
+        // Extract data from successful calls, use empty arrays for failed calls
+        const [
+          salesforceData,
+          amadeusDataResult,
+          teamStatsResult,
+          resourceStatsResult,
+          windowStatsResult,
+          activityStatsResult,
+          amadeusCaseStatsResult,
+          amadeusAgentStatsResult,
+          amadeusWindowStatsResult,
+          amadeusActivityStatsResult,
+        ] = results.map((result, index) => {
+          if (result.status === 'fulfilled') {
+            return result.value
+          } else {
+            const apiNames = [
+              'Salesforce Data', 'Amadeus Data', 'Team Stats', 'Resource Stats', 
+              'Window Stats', 'Activity Stats', 'Amadeus Case Stats', 
+              'Amadeus Agent Stats', 'Amadeus Window Stats', 'Amadeus Activity Stats'
+            ]
+            console.warn(`API call failed for ${apiNames[index]}:`, result.reason)
+            return []
+          }
+        })
+
         setData(salesforceData)
         setAmadeusData(amadeusDataResult)
         setTeamStats(teamStatsResult)
@@ -81,8 +96,9 @@ export function useSupabaseData() {
         setAmadeusWindowStats(amadeusWindowStatsResult)
         setAmadeusActivityStats(amadeusActivityStatsResult)
       } catch (err) {
+        // This should rarely happen now with Promise.allSettled, but keep for safety
         setError(err instanceof Error ? err.message : 'Failed to fetch data')
-        console.error('Error fetching data:', err)
+        console.error('Unexpected error in data fetching:', err)
       } finally {
         setLoading(false)
       }
