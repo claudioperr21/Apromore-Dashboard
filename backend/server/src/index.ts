@@ -57,6 +57,101 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Database schema check endpoint
+app.get('/api/db/schema', async (req, res) => {
+  try {
+    // Check what tables exist
+    const { data: tables, error: tablesError } = await supabase
+      .from('information_schema.tables')
+      .select('table_name')
+      .eq('table_schema', 'public');
+    
+    if (tablesError) throw tablesError;
+    
+    // Check what views exist
+    const { data: views, error: viewsError } = await supabase
+      .from('information_schema.views')
+      .select('table_name')
+      .eq('table_schema', 'public');
+    
+    if (viewsError) throw viewsError;
+    
+    res.json({
+      success: true,
+      data: {
+        tables: tables?.map(t => t.table_name) || [],
+        views: views?.map(v => v.table_name) || []
+      }
+    });
+  } catch (error) {
+    console.error('Error checking database schema:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+// Database data check endpoint
+app.get('/api/db/data-check', async (req, res) => {
+  try {
+    // Check if amadeus_data table has data
+    const { count: amadeusCount, error: amadeusError } = await supabase
+      .from('amadeus_data')
+      .select('*', { count: 'exact', head: true });
+    
+    if (amadeusError) {
+      res.json({
+        success: true,
+        data: {
+          amadeus_data: { exists: false, count: 0, error: amadeusError.message }
+        }
+      });
+      return;
+    }
+    
+    // Check if salesforce tables have data
+    const { count: teamCount, error: teamError } = await supabase
+      .from('team_stats')
+      .select('*', { count: 'exact', head: true });
+    
+    res.json({
+      success: true,
+      data: {
+        amadeus_data: { exists: true, count: amadeusCount || 0 },
+        team_stats: { exists: !teamError, count: teamCount || 0 }
+      }
+    });
+  } catch (error) {
+    console.error('Error checking database data:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+// Database setup instructions endpoint
+app.get('/api/db/setup-instructions', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      message: 'Database schema setup required',
+      steps: [
+        '1. Run the Amadeus database schema script: backend/schemas/setup-amadeus-database.sql',
+        '2. Upload Amadeus data using: backend/scripts/upload-amadeus-to-supabase.js',
+        '3. Ensure Supabase service key has proper permissions',
+        '4. Check that all required tables and views are created'
+      ],
+      files: [
+        'backend/schemas/setup-amadeus-database.sql',
+        'backend/scripts/upload-amadeus-to-supabase.js'
+      ],
+      note: 'The backend will return 404 errors until the database schema is properly set up.'
+    }
+  });
+});
+
 // API Routes
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Dashboard Backend API is running!' });
@@ -237,13 +332,32 @@ app.get('/api/salesforce/window-stats', async (req, res) => {
 // Amadeus data endpoints
 app.get('/api/amadeus/case-stats', async (req, res) => {
   try {
+    // First check if the table exists
+    const { data: tableCheck, error: tableError } = await supabase
+      .from('amadeus_case_stats')
+      .select('*')
+      .limit(1);
+    
+    if (tableError) {
+      if (tableError.code === '42P01') { // Table doesn't exist
+        return res.status(404).json({ 
+          success: false, 
+          error: 'Amadeus case stats table not found. Database schema may not be set up yet.',
+          code: 'TABLE_NOT_FOUND',
+          suggestion: 'Run the database setup scripts to create required tables and views.'
+        });
+      }
+      throw tableError;
+    }
+    
+    // If table exists, fetch the data
     const { data, error } = await supabase
       .from('amadeus_case_stats')
       .select('*');
     
     if (error) throw error;
     
-    res.json({ success: true, data });
+    res.json({ success: true, data: data || [] });
   } catch (error) {
     console.error('Error fetching Amadeus case stats:', error);
     res.status(500).json({ 
@@ -255,13 +369,32 @@ app.get('/api/amadeus/case-stats', async (req, res) => {
 
 app.get('/api/amadeus/agent-stats', async (req, res) => {
   try {
+    // First check if the table exists
+    const { data: tableCheck, error: tableError } = await supabase
+      .from('amadeus_agent_stats')
+      .select('*')
+      .limit(1);
+    
+    if (tableError) {
+      if (tableError.code === '42P01') { // Table doesn't exist
+        return res.status(404).json({ 
+          success: false, 
+          error: 'Amadeus agent stats table not found. Database schema may not be set up yet.',
+          code: 'TABLE_NOT_FOUND',
+          suggestion: 'Run the database setup scripts to create required tables and views.'
+        });
+      }
+      throw tableError;
+    }
+    
+    // If table exists, fetch the data
     const { data, error } = await supabase
       .from('amadeus_agent_stats')
       .select('*');
     
     if (error) throw error;
     
-    res.json({ success: true, data });
+    res.json({ success: true, data: data || [] });
   } catch (error) {
     console.error('Error fetching Amadeus agent stats:', error);
     res.status(500).json({ 
@@ -273,13 +406,32 @@ app.get('/api/amadeus/agent-stats', async (req, res) => {
 
 app.get('/api/amadeus/window-stats', async (req, res) => {
   try {
+    // First check if the table exists
+    const { data: tableCheck, error: tableError } = await supabase
+      .from('amadeus_window_stats')
+      .select('*')
+      .limit(1);
+    
+    if (tableError) {
+      if (tableError.code === '42P01') { // Table doesn't exist
+        return res.status(404).json({ 
+          success: false, 
+          error: 'Amadeus window stats table not found. Database schema may not be set up yet.',
+          code: 'TABLE_NOT_FOUND',
+          suggestion: 'Run the database setup scripts to create required tables and views.'
+        });
+      }
+      throw tableError;
+    }
+    
+    // If table exists, fetch the data
     const { data, error } = await supabase
       .from('amadeus_window_stats')
       .select('*');
     
     if (error) throw error;
     
-    res.json({ success: true, data });
+    res.json({ success: true, data: data || [] });
   } catch (error) {
     console.error('Error fetching Amadeus window stats:', error);
     res.status(500).json({ 
@@ -291,13 +443,32 @@ app.get('/api/amadeus/window-stats', async (req, res) => {
 
 app.get('/api/amadeus/activity-stats', async (req, res) => {
   try {
+    // First check if the table exists
+    const { data: tableCheck, error: tableError } = await supabase
+      .from('amadeus_activity_stats')
+      .select('*')
+      .limit(1);
+    
+    if (tableError) {
+      if (tableError.code === '42P01') { // Table doesn't exist
+        return res.status(404).json({ 
+          success: false, 
+          error: 'Amadeus activity stats table not found. Database schema may not be set up yet.',
+          code: 'TABLE_NOT_FOUND',
+          suggestion: 'Run the database setup scripts to create required tables and views.'
+        });
+      }
+      throw tableError;
+    }
+    
+    // If table exists, fetch the data
     const { data, error } = await supabase
       .from('amadeus_activity_stats')
       .select('*');
     
     if (error) throw error;
     
-    res.json({ success: true, data });
+    res.json({ success: true, data: data || [] });
   } catch (error) {
     console.error('Error fetching Amadeus activity stats:', error);
     res.status(500).json({ 
