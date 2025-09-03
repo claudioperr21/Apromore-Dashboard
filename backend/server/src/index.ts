@@ -41,7 +41,7 @@ app.use(express.json());
 
 // Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjE1NjExOSwiZXhwIjoyMDcxNzMyMTE5fQ.sxUAUlbYvr7hBIZekYt5sGNwHmHkkUSwTXjvMa3wt2o';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // OpenAI client
@@ -157,6 +157,103 @@ app.get('/api/db/setup-instructions', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Dashboard Backend API is running!' });
 });
+
+// Database diagnostic endpoint
+app.get('/api/db/diagnose', async (req, res) => {
+  try {
+    console.log('🔍 Running database diagnostics...');
+    
+    const diagnostics: any = {
+      timestamp: new Date().toISOString(),
+      supabase_url: supabaseUrl,
+      connection_test: null,
+      table_check: null,
+      view_check: null,
+      data_check: null
+    };
+    
+    // Test 1: Basic connection - try to access a simple table
+    try {
+      const { data: connectionTest, error: connectionError } = await supabase
+        .from('amadeus_data')
+        .select('id')
+        .limit(1);
+      
+      if (connectionError) {
+        diagnostics.connection_test = { success: false, error: connectionError.message };
+      } else {
+        diagnostics.connection_test = { success: true, tables_found: 1 };
+      }
+    } catch (error: any) {
+      diagnostics.connection_test = { success: false, error: error.message };
+    }
+    
+    // Test 2: Check for amadeus_data table
+    try {
+      const { count: tableCount, error: tableError } = await supabase
+        .from('amadeus_data')
+        .select('*', { count: 'exact', head: true });
+      
+      if (tableError) {
+        diagnostics.table_check = { success: false, error: tableError.message };
+      } else {
+        diagnostics.table_check = { 
+          success: true, 
+          table_exists: true,
+          table_name: 'amadeus_data'
+        };
+      }
+    } catch (error: any) {
+      diagnostics.table_check = { success: false, error: error.message };
+    }
+    
+    // Test 3: Check for views
+    try {
+      const { data: viewCheck, error: viewError } = await supabase
+        .from('amadeus_case_stats')
+        .select('*')
+        .limit(1);
+      
+      if (viewError) {
+        diagnostics.view_check = { success: false, error: viewError.message };
+      } else {
+        diagnostics.view_check = { 
+          success: true, 
+          views_found: 1,
+          view_names: ['amadeus_case_stats']
+        };
+      }
+    } catch (error: any) {
+      diagnostics.view_check = { success: false, error: error.message };
+    }
+    
+    // Test 4: Try to access amadeus_data directly
+    try {
+      const { count, error: dataError } = await supabase
+        .from('amadeus_data')
+        .select('*', { count: 'exact', head: true });
+      
+      if (dataError) {
+        diagnostics.data_check = { success: false, error: dataError.message };
+      } else {
+        diagnostics.data_check = { success: true, record_count: count || 0 };
+      }
+    } catch (error: any) {
+      diagnostics.data_check = { success: false, error: error.message };
+    }
+    
+    console.log('✅ Diagnostics completed');
+    res.json({ success: true, data: diagnostics });
+    
+  } catch (error: any) {
+    console.error('❌ Error running diagnostics:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message || 'Unknown error' 
+    });
+  }
+});
+
 
 // AI Chat endpoint
 app.post('/api/ai/chat', async (req, res) => {
