@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Send, Bot, User, Sparkles } from "lucide-react"
-import { useSupabaseData } from "@/hooks/use-supabase-data"
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { Send, Bot, User, Loader2 } from "lucide-react";
 
 interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  timestamp: Date
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
 }
 
 export function TaskMiningAssistantCanvas() {
@@ -20,169 +20,87 @@ export function TaskMiningAssistantCanvas() {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m your AI-powered Task Mining Assistant. I can analyze your process data, identify bottlenecks, and provide intelligent insights about your workflow. What would you like to know?',
+      content: 'Hello! I\'m your Task Mining Assistant. I can help you analyze process mining data, identify bottlenecks, and optimize workflows. What would you like to know about your business processes?',
       timestamp: new Date()
     }
-  ])
-  const [inputValue, setInputValue] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  
-  const { 
-    data, 
-    amadeusData, 
-    amadeusCaseStats, 
-    amadeusAgentStats,
-    getTeamStats,
-    getResourceStats,
-    getWindowStats,
-    getActivityStats
-  } = useSupabaseData()
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return
+    if (!inputMessage.trim()) return;
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',
-      content: inputValue,
+      content: inputMessage,
       timestamp: new Date()
-    }
+    };
 
-    setMessages(prev => [...prev, userMessage])
-    setInputValue('')
-    setIsLoading(true)
+    setMessages(prev => [...prev, userMessage]);
+    setInputMessage('');
+    setIsLoading(true);
 
     try {
-      // Call the AI backend
-      const response = await fetch('https://dashboard-backend-2024.fly.dev/api/ai/chat', {
+      // Call the AI chat API
+      const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: inputValue,
-          context: {
-            hasSalesforceData: data && data.length > 0,
-            hasAmadeusData: amadeusData && amadeusData.length > 0,
-            teamCount: getTeamStats().length,
-            resourceCount: getResourceStats().length
-          }
-        })
-      })
+          message: inputMessage,
+          context: 'dashboard'
+        }),
+      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      const result = await response.json()
-      
-      if (result.success) {
+      if (response.ok) {
+        const data = await response.json();
         const assistantMessage: ChatMessage = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: result.data.response,
+          content: data.data.response,
           timestamp: new Date()
-        }
-        setMessages(prev => [...prev, assistantMessage])
+        };
+        setMessages(prev => [...prev, assistantMessage]);
       } else {
-        throw new Error(result.error || 'Failed to get AI response')
+        throw new Error('Failed to get AI response');
       }
     } catch (error) {
-      console.error('Error calling AI backend:', error)
-      
-      // Fallback to simulated response if AI fails
-      const fallbackResponse = generateFallbackResponse(inputValue)
-      const assistantMessage: ChatMessage = {
+      const errorMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: fallbackResponse,
+        content: 'I apologize, but I encountered an error while processing your request. Please try again or check if the backend service is running.',
         timestamp: new Date()
-      }
-      setMessages(prev => [...prev, assistantMessage])
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
-
-  const generateFallbackResponse = (userInput: string): string => {
-    const input = userInput.toLowerCase()
-    
-    // Team performance analysis
-    if (input.includes('team') || input.includes('performance')) {
-      const teamStats = getTeamStats()
-      const topTeam = teamStats.sort((a, b) => b.count - a.count)[0]
-      return `Based on the data, ${topTeam?.team || 'the top team'} has the highest activity count with ${topTeam?.count || 0} activities. The average duration per activity is ${Math.round(topTeam?.avgDuration || 0)} seconds.`
-    }
-    
-    // Resource utilization
-    if (input.includes('resource') || input.includes('utilization')) {
-      const resourceStats = getResourceStats()
-      const topResource = resourceStats.sort((a, b) => b.count - a.count)[0]
-      return `The most active resource is ${topResource?.resource || 'unknown'} with ${topResource?.count || 0} activities. They spend an average of ${Math.round(topResource?.avgDuration || 0)} seconds per activity.`
-    }
-    
-    // Application usage
-    if (input.includes('application') || input.includes('window') || input.includes('app')) {
-      const windowStats = getWindowStats()
-      const topApp = windowStats.sort((a, b) => b.totalDuration - a.totalDuration)[0]
-      return `The most used application is ${topApp?.window || 'unknown'} with ${topApp?.totalDuration || 0} total seconds of usage and ${topApp?.totalClicks || 0} total clicks.`
-    }
-    
-    // Process analysis
-    if (input.includes('process') || input.includes('workflow')) {
-      const activityStats = getActivityStats()
-      const topActivity = activityStats.sort((a, b) => b.totalDuration - a.totalDuration)[0]
-      return `The most time-consuming activity is "${topActivity?.activity || 'unknown'}" with ${topActivity?.totalDuration || 0} total seconds. This might be a bottleneck in your process.`
-    }
-    
-    // Amadeus specific analysis
-    if (input.includes('amadeus') || input.includes('case')) {
-      if (amadeusCaseStats.length > 0) {
-        const topCase = amadeusCaseStats.sort((a, b) => b.total_duration - a.total_duration)[0]
-        return `In the Amadeus dataset, case ${topCase?.Case_ID || 'unknown'} has the longest duration with ${Math.round(topCase?.total_duration || 0)} seconds and ${topCase?.total_activities || 0} activities.`
-      }
-      return "I can see you have Amadeus process mining data available. Ask me about case analysis, agent performance, or application usage patterns."
-    }
-    
-    // General help
-    if (input.includes('help') || input.includes('what can you do')) {
-      return `I can help you analyze:
-• Team performance metrics
-• Resource utilization patterns
-• Application usage statistics
-• Process workflow analysis
-• Case duration insights
-• Bottleneck identification
-
-Just ask me about any of these areas!`
-    }
-    
-    // Default response
-    return "I can help you analyze your task mining data. Try asking about team performance, resource utilization, application usage, or process analysis. What specific insights are you looking for?"
-  }
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
+      e.preventDefault();
+      handleSendMessage();
     }
-  }
+  };
 
   return (
-    <Card className="w-full">
+    <Card className="h-full flex flex-col">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Bot className="h-5 w-5" />
+          <Bot className="h-5 w-5 text-blue-600" />
           Task Mining Assistant
-          <Sparkles className="h-4 w-4 text-yellow-500" />
         </CardTitle>
         <CardDescription>
-          AI-powered insights for your process mining data. Powered by GPT-4, I can analyze performance, identify bottlenecks, and suggest workflow optimizations.
+          AI-powered process mining analysis and workflow optimization
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      
+      <CardContent className="flex-1 flex flex-col gap-4">
         {/* Chat Messages */}
-        <ScrollArea className="h-96 w-full rounded-md border p-4">
+        <ScrollArea className="flex-1 min-h-[400px] border rounded-lg p-4">
           <div className="space-y-4">
             {messages.map((message) => (
               <div
@@ -192,97 +110,99 @@ Just ask me about any of these areas!`
                 }`}
               >
                 {message.role === 'assistant' && (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <Bot className="h-4 w-4" />
+                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-blue-600" />
                   </div>
                 )}
+                
                 <div
-                  className={`max-w-[80%] rounded-lg px-3 py-2 ${
+                  className={`max-w-[80%] rounded-lg p-3 ${
                     message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-900'
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  <p className="text-sm">{message.content}</p>
                   <p className="text-xs opacity-70 mt-1">
                     {message.timestamp.toLocaleTimeString()}
                   </p>
                 </div>
+
                 {message.role === 'user' && (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
-                    <User className="h-4 w-4" />
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                    <User className="h-4 w-4 text-gray-600" />
                   </div>
                 )}
               </div>
             ))}
+            
             {isLoading && (
               <div className="flex gap-3 justify-start">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <Bot className="h-4 w-4" />
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <Bot className="h-4 w-4 text-blue-600" />
                 </div>
-                <div className="bg-muted rounded-lg px-3 py-2">
-                  <p className="text-sm">🤖 AI is thinking...</p>
+                <div className="bg-gray-100 rounded-lg p-3">
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span className="text-sm text-gray-600">Thinking...</span>
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </ScrollArea>
-        
+
         {/* Input Area */}
         <div className="flex gap-2">
           <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me about your process data, bottlenecks, or workflow optimization..."
+            placeholder="Ask about your process mining data..."
             disabled={isLoading}
             className="flex-1"
           />
-          <Button 
-            onClick={handleSendMessage} 
-            disabled={isLoading || !inputValue.trim()}
+          <Button
+            onClick={handleSendMessage}
+            disabled={!inputMessage.trim() || isLoading}
             size="icon"
           >
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        
+
         {/* Quick Actions */}
         <div className="flex flex-wrap gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setInputValue("How is my team performing?")}
-            disabled={isLoading}
+          <Badge
+            variant="secondary"
+            className="cursor-pointer hover:bg-gray-200"
+            onClick={() => setInputMessage("What are the main bottlenecks in our process?")}
           >
-            Team Performance
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setInputValue("What are the bottlenecks in my process?")}
-            disabled={isLoading}
+            Identify bottlenecks
+          </Badge>
+          <Badge
+            variant="secondary"
+            className="cursor-pointer hover:bg-gray-200"
+            onClick={() => setInputMessage("How can we optimize our workflow?")}
           >
-            Find Bottlenecks
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setInputValue("Which applications are used most?")}
-            disabled={isLoading}
+            Optimize workflow
+          </Badge>
+          <Badge
+            variant="secondary"
+            className="cursor-pointer hover:bg-gray-200"
+            onClick={() => setInputMessage("Show me team performance insights")}
           >
-            App Usage
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setInputValue("Analyze my Amadeus workflow")}
-            disabled={isLoading}
+            Team insights
+          </Badge>
+          <Badge
+            variant="secondary"
+            className="cursor-pointer hover:bg-gray-200"
+            onClick={() => setInputMessage("Analyze resource utilization")}
           >
-            Amadeus Analysis
-          </Button>
+            Resource analysis
+          </Badge>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
