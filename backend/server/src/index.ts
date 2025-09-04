@@ -40,13 +40,18 @@ app.use(cors({
 app.use(express.json());
 
 // Supabase client
-const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjE1NjExOSwiZXhwIjoyMDcxNzMyMTE5fQ.sxUAUlbYvr7hBIZekYt5sGNwHmHkkUSwTXjvMa3wt2o';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error('Missing required environment variables: SUPABASE_URL and SUPABASE_SERVICE_KEY');
+}
+
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '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',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Health check endpoint
