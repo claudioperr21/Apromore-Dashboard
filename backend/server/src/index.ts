@@ -338,10 +338,28 @@ Keep responses concise, actionable, and focused on business value. Use the data 
 });
 
 // Salesforce data endpoints
+app.get('/api/salesforce/data', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('amadeus_data')
+      .select('*');
+    
+    if (error) throw error;
+    
+    res.json({ success: true, data: data || [] });
+  } catch (error) {
+    console.error('Error fetching Salesforce data:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
 app.get('/api/salesforce/teams', async (req, res) => {
   try {
     const { data, error } = await supabase
-      .from('salesforce_data')
+      .from('amadeus_data')
       .select('Team')
       .not('Team', 'is', null);
     
@@ -361,7 +379,7 @@ app.get('/api/salesforce/teams', async (req, res) => {
 app.get('/api/salesforce/resources', async (req, res) => {
   try {
     const { data, error } = await supabase
-      .from('salesforce_data')
+      .from('amadeus_data')
       .select('Resource')
       .not('Resource', 'is', null);
     
@@ -371,6 +389,36 @@ app.get('/api/salesforce/resources', async (req, res) => {
     res.json({ success: true, data: uniqueResources });
   } catch (error) {
     console.error('Error fetching resources:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+app.get('/api/salesforce/filtered', async (req, res) => {
+  try {
+    const { teams, resources } = req.query;
+    
+    let query = supabase.from('amadeus_data').select('*');
+    
+    if (teams) {
+      const teamArray = Array.isArray(teams) ? teams : teams.split(',');
+      query = query.in('Team', teamArray);
+    }
+    
+    if (resources) {
+      const resourceArray = Array.isArray(resources) ? resources : resources.split(',');
+      query = query.in('Resource', resourceArray);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) throw error;
+    
+    res.json({ success: true, data: data || [] });
+  } catch (error) {
+    console.error('Error fetching filtered data:', error);
     res.status(500).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
@@ -433,6 +481,24 @@ app.get('/api/salesforce/window-stats', async (req, res) => {
 });
 
 // Amadeus data endpoints
+app.get('/api/amadeus/data', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('amadeus_data')
+      .select('*');
+    
+    if (error) throw error;
+    
+    res.json({ success: true, data: data || [] });
+  } catch (error) {
+    console.error('Error fetching Amadeus data:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
 app.get('/api/amadeus/case-stats', async (req, res) => {
   try {
     // First check if the table exists

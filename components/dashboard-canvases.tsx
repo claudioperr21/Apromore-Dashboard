@@ -44,7 +44,7 @@ export function DashboardCanvases() {
       
       <TabsContent value="salesforce" className="space-y-6">
         <TeamsOverviewCanvas teamStats={teamStats} />
-        <TaskLevelCanvas windowStats={windowStats} activityStats={activityStats} />
+        <TaskLevelCanvas />
         <ResourcesCanvas resourceStats={resourceStats} />
       </TabsContent>
       
