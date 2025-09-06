@@ -39,11 +39,19 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Supabase client
-const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNTYxMTksImV4cCI6MjA3MTczMjExOX0.hm0D6dHaXBbZk4Hd7wcXMTP_UTZFjqvb_nMCihZjJIc';
+// Supabase client - enforce service role
+const must = (k: string) => {
+  const v = process.env[k];
+  if (!v) throw new Error(`Missing required env: ${k}`);
+  return v;
+};
 
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const supabaseUrl = must('SUPABASE_URL');                 // project URL
+const supabaseServiceKey = must('SUPABASE_SERVICE_KEY');  // service role only
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: { persistSession: false },
+});
 
 // OpenAI client (optional)
 const openai = process.env.OPENAI_API_KEY ? new OpenAI({
@@ -679,46 +687,26 @@ app.get('/api/amadeus/activity-stats', async (req, res) => {
 });
 
 // Temporary confirmation endpoint for Amadeus data
-app.get('/api/amadeus/_confirm', async (req, res) => {
+app.get('/api/amadeus/_confirm', async (_req, res) => {
   try {
-    // Get a sample of data from amadeus_data table
-    const { data: sampleData, error: sampleError } = await supabase
+    const { count } = await supabase
+      .from('amadeus_data')
+      .select('*', { count: 'exact', head: true });
+
+    const { data: sample, error } = await supabase
       .from('amadeus_data')
       .select('Case_ID, Window, Activity, duration_seconds')
       .limit(3);
-    
-    if (sampleError) throw sampleError;
-    
-    // Get approximate row count
-    const { count, error: countError } = await supabase
-      .from('amadeus_data')
-      .select('*', { count: 'exact', head: true });
-    
-    if (countError) throw countError;
-    
-    // Get column names (subset)
-    const { data: columnData, error: columnError } = await supabase
-      .from('amadeus_data')
-      .select('*')
-      .limit(1);
-    
-    if (columnError) throw columnError;
-    
-    const columns = columnData && columnData.length > 0 ? Object.keys(columnData[0]).slice(0, 10) : [];
-    
+
+    if (error) throw error;
     res.json({
-      source: "supabase",
-      table: "amadeus_data",
-      rowCount: count || 0,
-      columns: columns,
-      sample: sampleData || []
+      source: 'supabase',
+      table: 'amadeus_data',
+      rowCount: count ?? 0,
+      sample,
     });
-  } catch (error) {
-    console.error('Error in Amadeus confirmation endpoint:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error' 
-    });
+  } catch (e: any) {
+    res.status(500).json({ ok: false, error: e?.message || 'unknown' });
   }
 });
 

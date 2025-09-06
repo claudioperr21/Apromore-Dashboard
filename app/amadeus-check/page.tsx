@@ -1,95 +1,36 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { api } from '@/lib/supabase';
-
-const BUILT_API = process.env.NEXT_PUBLIC_API_URL;
-
-interface ConfirmData {
-  source: string;
-  table: string;
-  rowCount: number;
-  columns: string[];
-  sample: Array<{
-    Case_ID: string;
-    Window: string;
-    Activity: string;
-    duration_seconds: number;
-  }>;
-}
 
 export default function AmadeusCheck() {
-  const [status, setStatus] = useState('checking...');
-  const [data, setData] = useState<ConfirmData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const built = process.env.NEXT_PUBLIC_API_URL;
+  const [resp, setResp] = useState<any>(null);
+  const [err, setErr] = useState<string>('');
 
   useEffect(() => {
-    const checkConnection = async () => {
-      try {
-        const response = await fetch(api('/amadeus/_confirm'));
-        const result = await response.json();
-        
-        if (result.success) {
-          setData(result);
-          setStatus('OK');
-        } else {
-          setError(result.error || 'Unknown error');
-          setStatus('ERROR');
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Network error');
-        setStatus('ERROR');
-      }
-    };
-
-    checkConnection();
-  }, []);
+    const base = (built || '').replace(/\/+$/, '');
+    fetch(`${base}/amadeus/_confirm`)
+      .then(r => r.json())
+      .then(setResp)
+      .catch(e => setErr(String(e)));
+  }, [built]);
 
   return (
-    <main className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Amadeus Data Connection Check</h1>
-      
-      <div className="space-y-3">
-        <div>
-          <b>API Base (built):</b> {String(BUILT_API)}
-        </div>
-        
-        <div>
-          <b>Status:</b> {status}
-        </div>
-        
-        {error && (
-          <div className="text-red-600">
-            <b>Error:</b> {error}
+    <main className="p-6 space-y-2">
+      <h1 className="text-xl font-bold">Amadeus Supabase Check</h1>
+      <div><b>API Base (built):</b> {built}</div>
+      {err && <div><b>Error:</b> {err}</div>}
+      {resp && (
+        <>
+          <div><b>Table:</b> {resp.table}</div>
+          <div><b>rowCount:</b> {resp.rowCount}</div>
+          <pre className="text-sm bg-black/10 p-3 rounded">{JSON.stringify(resp.sample, null, 2)}</pre>
+          <div className="font-semibold">
+            {resp.table === 'amadeus_data' && typeof resp.rowCount === 'number'
+              ? 'OK: Reading amadeus_data via Fly.io API'
+              : 'FAILED: Unexpected response'}
           </div>
-        )}
-        
-        {data && (
-          <>
-            <div>
-              <b>Source:</b> {data.source}
-            </div>
-            
-            <div>
-              <b>Table:</b> {data.table}
-            </div>
-            
-            <div>
-              <b>Row Count:</b> {data.rowCount}
-            </div>
-            
-            <div>
-              <b>Columns:</b> {data.columns.join(', ')}
-            </div>
-            
-            <div>
-              <b>Sample Data (first 3 rows):</b>
-              <pre className="mt-2 p-3 bg-gray-100 rounded text-sm overflow-auto">
-                {JSON.stringify(data.sample, null, 2)}
-              </pre>
-            </div>
-          </>
-        )}
-      </div>
+        </>
+      )}
     </main>
   );
 }
