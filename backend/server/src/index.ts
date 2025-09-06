@@ -40,19 +40,15 @@ app.use(cors({
 app.use(express.json());
 
 // Supabase client
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error('Missing required environment variables: SUPABASE_URL and SUPABASE_SERVICE_KEY');
-}
+const supabaseUrl = process.env.SUPABASE_URL || 'https://tjcstfigqpbswblykomp.supabase.co';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqY3N0ZmlncXBic3dibHlrb21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNTYxMTksImV4cCI6MjA3MTczMjExOX0.hm0D6dHaXBbZk4Hd7wcXMTP_UTZFjqvb_nMCihZjJIc';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// OpenAI client
-const openai = new OpenAI({
+// OpenAI client (optional)
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}) : null;
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -306,25 +302,34 @@ Your role is to:
 
 Keep responses concise, actionable, and focused on business value. Use the data context when available to provide specific insights.`;
 
-    // Call OpenAI API
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: message }
-      ],
-      max_tokens: 500,
-      temperature: 0.7,
-    });
+    // Call OpenAI API (if available)
+    let aiResponse = 'I apologize, but the AI assistant is not available at the moment.';
+    
+    if (openai) {
+      try {
+        const completion = await openai.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: message }
+          ],
+          max_tokens: 500,
+          temperature: 0.7,
+        });
 
-    const aiResponse = completion.choices[0]?.message?.content || 'I apologize, but I was unable to generate a response.';
+        aiResponse = completion.choices[0]?.message?.content || 'I apologize, but I was unable to generate a response.';
+      } catch (error) {
+        console.error('OpenAI API error:', error);
+        aiResponse = 'I apologize, but there was an error processing your request.';
+      }
+    }
 
     res.json({ 
       success: true, 
       data: {
         response: aiResponse,
-        model: "gpt-4o-mini",
-        usage: completion.usage
+        model: openai ? "gpt-4o-mini" : "unavailable",
+        usage: null
       }
     });
 
@@ -403,12 +408,12 @@ app.get('/api/salesforce/filtered', async (req, res) => {
     let query = supabase.from('amadeus_data').select('*');
     
     if (teams) {
-      const teamArray = Array.isArray(teams) ? teams : teams.split(',');
+      const teamArray = Array.isArray(teams) ? teams : (typeof teams === 'string' ? teams.split(',') : []);
       query = query.in('Team', teamArray);
     }
     
     if (resources) {
-      const resourceArray = Array.isArray(resources) ? resources : resources.split(',');
+      const resourceArray = Array.isArray(resources) ? resources : (typeof resources === 'string' ? resources.split(',') : []);
       query = query.in('Resource', resourceArray);
     }
     
@@ -501,32 +506,36 @@ app.get('/api/amadeus/data', async (req, res) => {
 
 app.get('/api/amadeus/case-stats', async (req, res) => {
   try {
-    // First check if the table exists
-    const { data: tableCheck, error: tableError } = await supabase
-      .from('amadeus_case_stats')
-      .select('*')
-      .limit(1);
-    
-    if (tableError) {
-      if (tableError.code === '42P01') { // Table doesn't exist
-        return res.status(404).json({ 
-          success: false, 
-          error: 'Amadeus case stats table not found. Database schema may not be set up yet.',
-          code: 'TABLE_NOT_FOUND',
-          suggestion: 'Run the database setup scripts to create required tables and views.'
-        });
-      }
-      throw tableError;
-    }
-    
-    // If table exists, fetch the data
+    // Query amadeus_data table directly and aggregate case statistics
     const { data, error } = await supabase
-      .from('amadeus_case_stats')
-      .select('*');
+      .from('amadeus_data')
+      .select('Case_ID, duration_seconds, Activity');
     
     if (error) throw error;
     
-    res.json({ success: true, data: data || [] });
+    // Aggregate case statistics
+    const caseStats = data.reduce((acc: any, row) => {
+      const caseId = row.Case_ID;
+      if (!acc[caseId]) {
+        acc[caseId] = {
+          Case_ID: caseId,
+          total_duration: 0,
+          total_activities: 0,
+          case_duration: '0m'
+        };
+      }
+      acc[caseId].total_duration += row.duration_seconds || 0;
+      acc[caseId].total_activities += 1;
+      return acc;
+    }, {});
+    
+    // Convert to array and format duration
+    const result = Object.values(caseStats).map((case_: any) => ({
+      ...case_,
+      case_duration: `${Math.round(case_.total_duration / 60 * 100) / 100}m`
+    }));
+    
+    res.json({ success: true, data: result });
   } catch (error) {
     console.error('Error fetching Amadeus case stats:', error);
     res.status(500).json({ 
@@ -538,32 +547,40 @@ app.get('/api/amadeus/case-stats', async (req, res) => {
 
 app.get('/api/amadeus/agent-stats', async (req, res) => {
   try {
-    // First check if the table exists
-    const { data: tableCheck, error: tableError } = await supabase
-      .from('amadeus_agent_stats')
-      .select('*')
-      .limit(1);
-    
-    if (tableError) {
-      if (tableError.code === '42P01') { // Table doesn't exist
-        return res.status(404).json({ 
-          success: false, 
-          error: 'Amadeus agent stats table not found. Database schema may not be set up yet.',
-          code: 'TABLE_NOT_FOUND',
-          suggestion: 'Run the database setup scripts to create required tables and views.'
-        });
-      }
-      throw tableError;
-    }
-    
-    // If table exists, fetch the data
+    // Query amadeus_data table directly and aggregate agent statistics
     const { data, error } = await supabase
-      .from('amadeus_agent_stats')
-      .select('*');
+      .from('amadeus_data')
+      .select('agent_profile_id, upn, Case_ID, duration_seconds');
     
     if (error) throw error;
     
-    res.json({ success: true, data: data || [] });
+    // Aggregate agent statistics
+    const agentStats = data.reduce((acc: any, row) => {
+      const agentId = row.agent_profile_id;
+      if (!acc[agentId]) {
+        acc[agentId] = {
+          agent_profile_id: agentId,
+          upn: row.upn,
+          total_cases: new Set(),
+          total_work_time: 0,
+          avg_activity_duration: 0
+        };
+      }
+      acc[agentId].total_cases.add(row.Case_ID);
+      acc[agentId].total_work_time += row.duration_seconds || 0;
+      return acc;
+    }, {});
+    
+    // Convert to array and calculate averages
+    const result = Object.values(agentStats).map((agent: any) => ({
+      agent_profile_id: agent.agent_profile_id,
+      upn: agent.upn,
+      total_cases: agent.total_cases.size,
+      total_work_time: agent.total_work_time,
+      avg_activity_duration: agent.total_work_time / data.filter(d => d.agent_profile_id === agent.agent_profile_id).length
+    }));
+    
+    res.json({ success: true, data: result });
   } catch (error) {
     console.error('Error fetching Amadeus agent stats:', error);
     res.status(500).json({ 
@@ -575,32 +592,39 @@ app.get('/api/amadeus/agent-stats', async (req, res) => {
 
 app.get('/api/amadeus/window-stats', async (req, res) => {
   try {
-    // First check if the table exists
-    const { data: tableCheck, error: tableError } = await supabase
-      .from('amadeus_window_stats')
-      .select('*')
-      .limit(1);
-    
-    if (tableError) {
-      if (tableError.code === '42P01') { // Table doesn't exist
-        return res.status(404).json({ 
-          success: false, 
-          error: 'Amadeus window stats table not found. Database schema may not be set up yet.',
-          code: 'TABLE_NOT_FOUND',
-          suggestion: 'Run the database setup scripts to create required tables and views.'
-        });
-      }
-      throw tableError;
-    }
-    
-    // If table exists, fetch the data
+    // Query amadeus_data table directly and aggregate window statistics
     const { data, error } = await supabase
-      .from('amadeus_window_stats')
-      .select('*');
+      .from('amadeus_data')
+      .select('Window, duration_seconds, Case_ID, Activity');
     
     if (error) throw error;
     
-    res.json({ success: true, data: data || [] });
+    // Aggregate window statistics
+    const windowStats = data.reduce((acc: any, row) => {
+      const window = row.Window;
+      if (!acc[window]) {
+        acc[window] = {
+          Window: window,
+          total_usage_time: 0,
+          unique_cases: new Set(),
+          total_activities: 0
+        };
+      }
+      acc[window].total_usage_time += row.duration_seconds || 0;
+      acc[window].unique_cases.add(row.Case_ID);
+      acc[window].total_activities += 1;
+      return acc;
+    }, {});
+    
+    // Convert to array
+    const result = Object.values(windowStats).map((window: any) => ({
+      Window: window.Window,
+      total_usage_time: window.total_usage_time,
+      unique_cases: window.unique_cases.size,
+      total_activities: window.total_activities
+    }));
+    
+    res.json({ success: true, data: result });
   } catch (error) {
     console.error('Error fetching Amadeus window stats:', error);
     res.status(500).json({ 
@@ -612,34 +636,85 @@ app.get('/api/amadeus/window-stats', async (req, res) => {
 
 app.get('/api/amadeus/activity-stats', async (req, res) => {
   try {
-    // First check if the table exists
-    const { data: tableCheck, error: tableError } = await supabase
-      .from('amadeus_activity_stats')
-      .select('*')
-      .limit(1);
-    
-    if (tableError) {
-      if (tableError.code === '42P01') { // Table doesn't exist
-        return res.status(404).json({ 
-          success: false, 
-          error: 'Amadeus activity stats table not found. Database schema may not be set up yet.',
-          code: 'TABLE_NOT_FOUND',
-          suggestion: 'Run the database setup scripts to create required tables and views.'
-        });
-      }
-      throw tableError;
-    }
-    
-    // If table exists, fetch the data
+    // Query amadeus_data table directly and aggregate activity statistics
     const { data, error } = await supabase
-      .from('amadeus_activity_stats')
-      .select('*');
+      .from('amadeus_data')
+      .select('Activity, duration_seconds, Case_ID');
     
     if (error) throw error;
     
-    res.json({ success: true, data: data || [] });
+    // Aggregate activity statistics
+    const activityStats = data.reduce((acc: any, row) => {
+      const activity = row.Activity;
+      if (!acc[activity]) {
+        acc[activity] = {
+          Activity: activity,
+          total_occurrences: 0,
+          unique_cases: new Set(),
+          total_time_spent: 0
+        };
+      }
+      acc[activity].total_occurrences += 1;
+      acc[activity].unique_cases.add(row.Case_ID);
+      acc[activity].total_time_spent += row.duration_seconds || 0;
+      return acc;
+    }, {});
+    
+    // Convert to array
+    const result = Object.values(activityStats).map((activity: any) => ({
+      Activity: activity.Activity,
+      total_occurrences: activity.total_occurrences,
+      unique_cases: activity.unique_cases.size,
+      total_time_spent: activity.total_time_spent
+    }));
+    
+    res.json({ success: true, data: result });
   } catch (error) {
     console.error('Error fetching Amadeus activity stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+// Temporary confirmation endpoint for Amadeus data
+app.get('/api/amadeus/_confirm', async (req, res) => {
+  try {
+    // Get a sample of data from amadeus_data table
+    const { data: sampleData, error: sampleError } = await supabase
+      .from('amadeus_data')
+      .select('Case_ID, Window, Activity, duration_seconds')
+      .limit(3);
+    
+    if (sampleError) throw sampleError;
+    
+    // Get approximate row count
+    const { count, error: countError } = await supabase
+      .from('amadeus_data')
+      .select('*', { count: 'exact', head: true });
+    
+    if (countError) throw countError;
+    
+    // Get column names (subset)
+    const { data: columnData, error: columnError } = await supabase
+      .from('amadeus_data')
+      .select('*')
+      .limit(1);
+    
+    if (columnError) throw columnError;
+    
+    const columns = columnData && columnData.length > 0 ? Object.keys(columnData[0]).slice(0, 10) : [];
+    
+    res.json({
+      source: "supabase",
+      table: "amadeus_data",
+      rowCount: count || 0,
+      columns: columns,
+      sample: sampleData || []
+    });
+  } catch (error) {
+    console.error('Error in Amadeus confirmation endpoint:', error);
     res.status(500).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 

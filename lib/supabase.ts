@@ -91,11 +91,12 @@ export interface AmadeusActivityStats {
 }
 
 // API functions that call the backend
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api').replace(/\/+$/, '');
+export const api = (path: string) => `${API_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
 
 export const getSalesforceData = async (): Promise<SalesforceData[]> => {
   try {
-    const response = await fetch(`${API_BASE}/salesforce/data`)
+    const response = await fetch(api('/salesforce/data'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -106,7 +107,7 @@ export const getSalesforceData = async (): Promise<SalesforceData[]> => {
 
 export const getTeams = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`${API_BASE}/salesforce/teams`)
+    const response = await fetch(api('/salesforce/teams'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -117,7 +118,7 @@ export const getTeams = async (): Promise<string[]> => {
 
 export const getResources = async (): Promise<string[]> => {
   try {
-    const response = await fetch(`${API_BASE}/salesforce/resources`)
+    const response = await fetch(api('/salesforce/resources'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -136,7 +137,7 @@ export const getFilteredData = async (teamFilter?: string[], resourceFilter?: st
       params.append('resources', resourceFilter.join(','))
     }
     
-    const response = await fetch(`${API_BASE}/salesforce/filtered?${params}`)
+    const response = await fetch(api('/salesforce/filtered') + '?' + params)
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -147,7 +148,7 @@ export const getFilteredData = async (teamFilter?: string[], resourceFilter?: st
 
 export const getAmadeusData = async (): Promise<AmadeusData[]> => {
   try {
-    const response = await fetch(`${API_BASE}/amadeus/data`)
+    const response = await fetch(api('/amadeus/data'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -158,7 +159,7 @@ export const getAmadeusData = async (): Promise<AmadeusData[]> => {
 
 export const getAmadeusCaseStats = async (): Promise<AmadeusCaseStats[]> => {
   try {
-    const response = await fetch(`${API_BASE}/amadeus/case-stats`)
+    const response = await fetch(api('/amadeus/case-stats'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -169,7 +170,7 @@ export const getAmadeusCaseStats = async (): Promise<AmadeusCaseStats[]> => {
 
 export const getAmadeusAgentStats = async (): Promise<AmadeusAgentStats[]> => {
   try {
-    const response = await fetch(`${API_BASE}/amadeus/agent-stats`)
+    const response = await fetch(api('/amadeus/agent-stats'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -180,7 +181,7 @@ export const getAmadeusAgentStats = async (): Promise<AmadeusAgentStats[]> => {
 
 export const getAmadeusWindowStats = async (): Promise<AmadeusWindowStats[]> => {
   try {
-    const response = await fetch(`${API_BASE}/amadeus/window-stats`)
+    const response = await fetch(api('/amadeus/window-stats'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -191,7 +192,7 @@ export const getAmadeusWindowStats = async (): Promise<AmadeusWindowStats[]> => 
 
 export const getAmadeusActivityStats = async (): Promise<AmadeusActivityStats[]> => {
   try {
-    const response = await fetch(`${API_BASE}/amadeus/activity-stats`)
+    const response = await fetch(api('/amadeus/activity-stats'))
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
@@ -203,7 +204,7 @@ export const getAmadeusActivityStats = async (): Promise<AmadeusActivityStats[]>
 export const getAmadeusProcessFlow = async (caseId?: string): Promise<any[]> => {
   try {
     const params = caseId ? `?caseId=${caseId}` : ''
-    const response = await fetch(`${API_BASE}/amadeus/process-flow${params}`)
+    const response = await fetch(api('/amadeus/process-flow') + params)
     const result = await response.json()
     return result.success ? result.data || [] : []
   } catch (error) {
